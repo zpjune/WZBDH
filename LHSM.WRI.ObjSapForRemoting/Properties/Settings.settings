@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="LHSM.HB.ObjSapForRemoting.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LHSM_WRI_ObjSapForRemoting_petrochinaZP10PSIF013_PO_ZP10PSIF013_POService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ep.erp.petrochina:8160/sap/bc/soap/rfc</Value>
+    </Setting>
+    <Setting Name="LHSM_WRI_ObjSapForRemoting_Sap_ZP10PSIF013_PO_ZP10PSIF013_POService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ep.erp.petrochina:8160/sap/bc/soap/rfc</Value>
+    </Setting>
+    <Setting Name="LHSM_WRI_ObjSapForRemoting_Sap_ZP10PSIF013_LFA1_ZP10PSIF013_LFA1Service" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ep.erp.petrochina:8160/sap/bc/soap/rfc</Value>
+    </Setting>
+    <Setting Name="LHSM_WRI_ObjSapForRemoting_Sap_ZP10PSIF013_MARA_ZP10PSIF013_MARAService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ep.erp.petrochina:8160/sap/bc/soap/rfc</Value>
+    </Setting>
+    <Setting Name="LHSM_WRI_ObjSapForRemoting_Sap_ZP10PSIF013_PSDG079_ZP10PSIF013_PSDG079Service" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ep.erp.petrochina:8160/sap/bc/soap/rfc</Value>
+    </Setting>
+    <Setting Name="LHSM_WRI_ObjSapForRemoting_Sap_ZP10PSIF013_QTZSL_ZP10PSIF013_QTZSLService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ep.erp.petrochina:8160/sap/bc/soap/rfc</Value>
+    </Setting>
+    <Setting Name="LHSM_WRI_ObjSapForRemoting_Sap_ZP10PSIF013_PRPS_ZP10PSIF013_PRPSService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ep.erp.petrochina:8160/sap/bc/soap/rfc</Value>
+    </Setting>
+    <Setting Name="LHSM_WRI_ObjSapForRemoting_Sap_ZP10PSIF013_COVP_ZP10PSIF013_COVPService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://ep.erp.petrochina:8160/sap/bc/soap/rfc</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
