@@ -1,6 +1,7 @@
 ﻿using LHSM.HB.ObjSapForRemoting;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -53,6 +54,52 @@ namespace WebServicetest
             }
         }
 
+        /// <summary>
+        /// 从ftp服务器上获得文件列表
+        /// </summary>
+        /// <param name="RequedstPath">服务器下的相对路径</param>
+        /// <returns></returns>
+        public static List<string> GetFile(DataTable fileNameDt,DateTime dtLastDownLoadDate)
+        {
+            List<string> strs = new List<string>();
+            try
+            {
+                string serverIP = ClsFtpInfo.ServerIP;
+                string userName = ClsFtpInfo.UserName;
+                string password = ClsFtpInfo.PassWord;
+               
+                string uri = "ftp://" + serverIP ;
+                FtpWebRequest reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(uri));
+                // ftp用户名和密码
+                reqFTP.Credentials = new NetworkCredential(userName, password);
+                reqFTP.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                WebResponse response = reqFTP.GetResponse();
+                StreamReader reader = new StreamReader(response.GetResponseStream());//中文文件名
+                DateTime txtDate ;
+                string line = reader.ReadLine();
+                while (line != null)
+                {
+                    if (!line.Contains("<DIR>"))
+                    {
+                        string msg = line.Substring(39).Trim();
+                        string[] arr = msg.Split('_');
+                        txtDate = Convert.ToDateTime(arr[1].Substring(0, 4) + "-" + arr[1].Substring(4, 2) + "-" + arr[1].Substring(6, 2));
+                        if (fileNameDt.Select("TXT_TABLENAME='"+arr[0]+"'").Length>0&& txtDate >= dtLastDownLoadDate) {
+                            strs.Add(msg);
+                        }
+                    }
+                    line = reader.ReadLine();
+                }
+                reader.Close();
+                response.Close();
+                return strs;
+            }
+            catch (Exception ex)
+            {
+                ClsErrorLogInfo.WriteSapLog("2", "", "Ftp", System.DateTime.Now.ToString(), "Ftp远程获取文件列表出错:" + ex);
+            }
+            return strs;
+        }
         public int DownloadFtp(string filename)
         {
             FtpWebRequest reqFTP;
@@ -97,6 +144,8 @@ namespace WebServicetest
                 password = string.Empty;
                 url = string.Empty;
             }
-        }  
+        }
+        
+
     }
 }

@@ -156,32 +156,32 @@
             this.rbLastDay = new System.Windows.Forms.RadioButton();
             this.tabFtpInfo = new System.Windows.Forms.TabPage();
             this.tbLocalPath = new System.Windows.Forms.TextBox();
+            this.cbFtpIsDown = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.btFtpInfoSave = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.tbFtpLastLoadTimeInfo = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
             this.tbFtpLastLoadDateInfo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tbFtpIntervalInfo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.tbFtpDownFilePathInfo = new System.Windows.Forms.TextBox();
             this.tbFtpPWInfo = new System.Windows.Forms.TextBox();
             this.tbFtpUserNameInfo = new System.Windows.Forms.TextBox();
             this.tbFtpIpInfo = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btFtpDownLoad = new System.Windows.Forms.Button();
-            this.cbFtpIsDown = new System.Windows.Forms.CheckBox();
             this.tbFtpDownDateSD = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.tbFtpLastLoadTimeInfo = new System.Windows.Forms.TextBox();
-            this.label43 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabHome.SuspendLayout();
@@ -1473,6 +1473,8 @@
             this.tabFtpInfo.Controls.Add(this.cbFtpIsDown);
             this.tabFtpInfo.Controls.Add(this.label16);
             this.tabFtpInfo.Controls.Add(this.btFtpInfoSave);
+            this.tabFtpInfo.Controls.Add(this.label44);
+            this.tabFtpInfo.Controls.Add(this.label4);
             this.tabFtpInfo.Controls.Add(this.label8);
             this.tabFtpInfo.Controls.Add(this.label43);
             this.tabFtpInfo.Controls.Add(this.label7);
@@ -1482,11 +1484,9 @@
             this.tabFtpInfo.Controls.Add(this.label6);
             this.tabFtpInfo.Controls.Add(this.tbFtpIntervalInfo);
             this.tabFtpInfo.Controls.Add(this.label5);
-            this.tabFtpInfo.Controls.Add(this.tbFtpDownFilePathInfo);
             this.tabFtpInfo.Controls.Add(this.tbFtpPWInfo);
             this.tabFtpInfo.Controls.Add(this.tbFtpUserNameInfo);
             this.tabFtpInfo.Controls.Add(this.tbFtpIpInfo);
-            this.tabFtpInfo.Controls.Add(this.label4);
             this.tabFtpInfo.Controls.Add(this.label3);
             this.tabFtpInfo.Controls.Add(this.label2);
             this.tabFtpInfo.Controls.Add(this.label1);
@@ -1501,15 +1501,26 @@
             // 
             // tbLocalPath
             // 
-            this.tbLocalPath.Location = new System.Drawing.Point(260, 173);
+            this.tbLocalPath.Location = new System.Drawing.Point(260, 141);
             this.tbLocalPath.Name = "tbLocalPath";
             this.tbLocalPath.Size = new System.Drawing.Size(221, 21);
             this.tbLocalPath.TabIndex = 34;
             // 
+            // cbFtpIsDown
+            // 
+            this.cbFtpIsDown.AutoSize = true;
+            this.cbFtpIsDown.Location = new System.Drawing.Point(260, 285);
+            this.cbFtpIsDown.Name = "cbFtpIsDown";
+            this.cbFtpIsDown.Size = new System.Drawing.Size(96, 16);
+            this.cbFtpIsDown.TabIndex = 4;
+            this.cbFtpIsDown.Text = "是否自动下载";
+            this.cbFtpIsDown.UseVisualStyleBackColor = true;
+            this.cbFtpIsDown.CheckedChanged += new System.EventHandler(this.cbFtpIsDown_CheckedChanged_1);
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(155, 178);
+            this.label16.Location = new System.Drawing.Point(155, 146);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(89, 12);
             this.label16.TabIndex = 33;
@@ -1517,7 +1528,7 @@
             // 
             // btFtpInfoSave
             // 
-            this.btFtpInfoSave.Location = new System.Drawing.Point(406, 317);
+            this.btFtpInfoSave.Location = new System.Drawing.Point(406, 281);
             this.btFtpInfoSave.Name = "btFtpInfoSave";
             this.btFtpInfoSave.Size = new System.Drawing.Size(75, 23);
             this.btFtpInfoSave.TabIndex = 32;
@@ -1529,25 +1540,51 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(496, 212);
+            this.label8.Location = new System.Drawing.Point(496, 180);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(77, 12);
             this.label8.TabIndex = 31;
             this.label8.Text = "时间间隔是天";
             // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.ForeColor = System.Drawing.Color.Red;
+            this.label43.Location = new System.Drawing.Point(496, 244);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(179, 12);
+            this.label43.TabIndex = 30;
+            this.label43.Text = "时间格式HH24:mm:ss 如08:00:00";
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(496, 246);
+            this.label7.Location = new System.Drawing.Point(496, 214);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(167, 12);
             this.label7.TabIndex = 30;
             this.label7.Text = "时间格式YYYYmmdd 如20170101";
             // 
+            // tbFtpLastLoadTimeInfo
+            // 
+            this.tbFtpLastLoadTimeInfo.Location = new System.Drawing.Point(260, 244);
+            this.tbFtpLastLoadTimeInfo.Name = "tbFtpLastLoadTimeInfo";
+            this.tbFtpLastLoadTimeInfo.Size = new System.Drawing.Size(221, 21);
+            this.tbFtpLastLoadTimeInfo.TabIndex = 29;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(167, 249);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(77, 12);
+            this.label42.TabIndex = 28;
+            this.label42.Text = "自动下载时间";
+            // 
             // tbFtpLastLoadDateInfo
             // 
-            this.tbFtpLastLoadDateInfo.Location = new System.Drawing.Point(260, 242);
+            this.tbFtpLastLoadDateInfo.Location = new System.Drawing.Point(260, 210);
             this.tbFtpLastLoadDateInfo.Name = "tbFtpLastLoadDateInfo";
             this.tbFtpLastLoadDateInfo.Size = new System.Drawing.Size(221, 21);
             this.tbFtpLastLoadDateInfo.TabIndex = 29;
@@ -1555,7 +1592,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(167, 247);
+            this.label6.Location = new System.Drawing.Point(167, 215);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 12);
             this.label6.TabIndex = 28;
@@ -1563,7 +1600,7 @@
             // 
             // tbFtpIntervalInfo
             // 
-            this.tbFtpIntervalInfo.Location = new System.Drawing.Point(260, 207);
+            this.tbFtpIntervalInfo.Location = new System.Drawing.Point(260, 175);
             this.tbFtpIntervalInfo.Name = "tbFtpIntervalInfo";
             this.tbFtpIntervalInfo.Size = new System.Drawing.Size(221, 21);
             this.tbFtpIntervalInfo.TabIndex = 27;
@@ -1571,18 +1608,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(167, 211);
+            this.label5.Location = new System.Drawing.Point(167, 179);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(77, 12);
             this.label5.TabIndex = 26;
             this.label5.Text = "自动下载周期";
-            // 
-            // tbFtpDownFilePathInfo
-            // 
-            this.tbFtpDownFilePathInfo.Location = new System.Drawing.Point(260, 141);
-            this.tbFtpDownFilePathInfo.Name = "tbFtpDownFilePathInfo";
-            this.tbFtpDownFilePathInfo.Size = new System.Drawing.Size(221, 21);
-            this.tbFtpDownFilePathInfo.TabIndex = 25;
             // 
             // tbFtpPWInfo
             // 
@@ -1607,15 +1637,6 @@
             this.tbFtpIpInfo.Size = new System.Drawing.Size(221, 21);
             this.tbFtpIpInfo.TabIndex = 22;
             this.tbFtpIpInfo.Text = "10.188.61.110";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(125, 145);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 12);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "  Ftp服务器下载路径";
             // 
             // label3
             // 
@@ -1677,20 +1698,8 @@
             this.btFtpDownLoad.UseVisualStyleBackColor = true;
             this.btFtpDownLoad.Click += new System.EventHandler(this.btFtpDownLoad_Click);
             // 
-            // cbFtpIsDown
-            // 
-            this.cbFtpIsDown.AutoSize = true;
-            this.cbFtpIsDown.Location = new System.Drawing.Point(260, 317);
-            this.cbFtpIsDown.Name = "cbFtpIsDown";
-            this.cbFtpIsDown.Size = new System.Drawing.Size(96, 16);
-            this.cbFtpIsDown.TabIndex = 4;
-            this.cbFtpIsDown.Text = "是否自动下载";
-            this.cbFtpIsDown.UseVisualStyleBackColor = true;
-            this.cbFtpIsDown.CheckedChanged += new System.EventHandler(this.cbFtpIsDown_CheckedChanged_1);
-            // 
             // tbFtpDownDateSD
             // 
-            this.tbFtpDownDateSD.Enabled = false;
             this.tbFtpDownDateSD.Location = new System.Drawing.Point(99, 24);
             this.tbFtpDownDateSD.Name = "tbFtpDownDateSD";
             this.tbFtpDownDateSD.Size = new System.Drawing.Size(176, 21);
@@ -1705,32 +1714,6 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "手动下载日期";
             // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(167, 281);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(77, 12);
-            this.label42.TabIndex = 28;
-            this.label42.Text = "自动下载时间";
-            // 
-            // tbFtpLastLoadTimeInfo
-            // 
-            this.tbFtpLastLoadTimeInfo.Location = new System.Drawing.Point(260, 276);
-            this.tbFtpLastLoadTimeInfo.Name = "tbFtpLastLoadTimeInfo";
-            this.tbFtpLastLoadTimeInfo.Size = new System.Drawing.Size(221, 21);
-            this.tbFtpLastLoadTimeInfo.TabIndex = 29;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.ForeColor = System.Drawing.Color.Red;
-            this.label43.Location = new System.Drawing.Point(496, 276);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(179, 12);
-            this.label43.TabIndex = 30;
-            this.label43.Text = "时间格式HH24:mm:ss 如08:00:00";
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -1740,6 +1723,26 @@
             this.label10.Size = new System.Drawing.Size(167, 12);
             this.label10.TabIndex = 30;
             this.label10.Text = "时间格式YYYYmmdd 如20170101";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(496, 144);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 12);
+            this.label4.TabIndex = 31;
+            this.label4.Text = "E://pathdic";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.ForeColor = System.Drawing.Color.Red;
+            this.label44.Location = new System.Drawing.Point(496, 51);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(89, 12);
+            this.label44.TabIndex = 31;
+            this.label44.Text = "192.168.1.2:21";
             // 
             // frmLHSMJOB
             // 
@@ -1813,11 +1816,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tbFtpIntervalInfo;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tbFtpDownFilePathInfo;
         private System.Windows.Forms.TextBox tbFtpPWInfo;
         private System.Windows.Forms.TextBox tbFtpUserNameInfo;
         private System.Windows.Forms.TextBox tbFtpIpInfo;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -1939,5 +1940,7 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Label label4;
     }
 }

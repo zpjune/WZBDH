@@ -46,9 +46,6 @@ namespace WebServicetest
                         case "PassWord":
                             ClsFtpInfo.PassWord = xmlEle.InnerText.Trim();
                             break;
-                        case "DownDictionaryPath":
-                            ClsFtpInfo.DownDictionaryPath = xmlEle.InnerText.Trim();
-                            break;
                         case "IsDownLoad":
                             ClsFtpInfo.IsDownLoad = Convert.ToBoolean(xmlEle.InnerText.Trim());
                             break;
@@ -88,7 +85,6 @@ namespace WebServicetest
                     xmlNode.SelectSingleNode("ServerIP").InnerText = ClsFtpInfo.ServerIP;
                     xmlNode.SelectSingleNode("UserName").InnerText = ClsFtpInfo.UserName;
                     xmlNode.SelectSingleNode("PassWord").InnerText = ClsFtpInfo.PassWord;
-                    xmlNode.SelectSingleNode("DownDictionaryPath").InnerText = ClsFtpInfo.DownDictionaryPath;
                     xmlNode.SelectSingleNode("LocalFilePath").InnerText = ClsFtpInfo.LocalFilePath;
                     xmlNode.SelectSingleNode("IsDownLoad").InnerText = ClsFtpInfo.IsDownLoad.ToString();
                 }

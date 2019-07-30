@@ -38,11 +38,7 @@ namespace WebServicetest
         ///  FTP服务器登录密码
         /// </summary>
         public static string PassWord { get; set; }
-
-        /// <summary>
-        ///  文件名
-        /// </summary>
-        public static string DownDictionaryPath { get; set; }
+        
 
         /// <summary>
         /// 保存到本地路径

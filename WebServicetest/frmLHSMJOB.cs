@@ -69,7 +69,6 @@ namespace WebServicetest
             this.tbFtpIpInfo.Text = ClsFtpInfo.ServerIP;
             this.tbFtpPWInfo.Text = ClsFtpInfo.PassWord;
             this.tbFtpUserNameInfo.Text = ClsFtpInfo.UserName;
-            this.tbFtpDownFilePathInfo.Text = ClsFtpInfo.DownDictionaryPath;
             this.tbLocalPath.Text = ClsFtpInfo.LocalFilePath;
             this.tbFtpIntervalInfo.Text = ClsFtpInfo.Interval;
             this.tbFtpLastLoadDateInfo.Text = ClsFtpInfo.LastLoadDate;
@@ -97,7 +96,6 @@ namespace WebServicetest
             ClsFtpInfo.ServerIP=this.tbFtpIpInfo.Text ;
             ClsFtpInfo.PassWord=this.tbFtpPWInfo.Text ;
             ClsFtpInfo.UserName= this.tbFtpUserNameInfo.Text ;
-            ClsFtpInfo.DownDictionaryPath=this.tbFtpDownFilePathInfo.Text ;
             ClsFtpInfo.LocalFilePath= this.tbLocalPath.Text ;
             ClsFtpInfo.Interval=this.tbFtpIntervalInfo.Text  ;
             ClsFtpInfo.LastLoadDate=this.tbFtpLastLoadDateInfo.Text ;
@@ -132,8 +130,39 @@ namespace WebServicetest
         /// <param name="e"></param>
         private void btFtpDownLoad_Click(object sender, EventArgs e)
         {
-            ClsFtpDownFile ftpdown = new ClsFtpDownFile();
-            //ftpdown.Download(ClsFtpInfo.FileName);
+            try
+            {
+                if (tbFtpDownDateSD.Text=="") {
+                    MessageBox.Show("请设置手动下载日期");
+                    return;
+                }
+                string LastLoadDate = tbFtpDownDateSD.Text;
+                string Interval = ClsFtpInfo.Interval;
+                // DateTime dtLastLoadDate = Convert.ToDateTime(LastLoadDate.Substring(0, 4) + "-" + LastLoadDate.Substring(4, 2) + "-" + LastLoadDate.Substring(6, 2)).AddDays(double.Parse(Interval));
+                DateTime dtLastLoadDate = Convert.ToDateTime(LastLoadDate.Substring(0, 4) + "-" + LastLoadDate.Substring(4, 2) + "-" + LastLoadDate.Substring(6, 2));
+                DataTable dtFile = GetDataSource(false);
+                List<string> list = ClsFtpDownFile.GetFile(dtFile, dtLastLoadDate);
+                if (list.Count > 0)
+                {
+                    ClsFtpDownFile ftpdown = new ClsFtpDownFile();
+                    foreach (string filaname in list)
+                    {
+                        ftpdown.Download(filaname);
+                    }
+                    MessageBox.Show("下载完成");
+                }
+                else {
+                    MessageBox.Show("没有符合fpt配置的下载文件");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("手动下载失败！");
+                ClsErrorLogInfo.WriteSapLog("2", "", "Ftp", System.DateTime.Now.ToString(), "Ftp远程手动下载文件失败:" + ex);
+            }
+            
+
+           
         }
 
         private void cbFtpIsDown_CheckedChanged(object sender, EventArgs e)
@@ -363,10 +392,32 @@ namespace WebServicetest
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             DateTime dtNow = DateTime.Now;
+            string isDownLoadFtpFile = ClsFtpInfo.IsDownLoad.ToString().ToUpper();
+            if (isDownLoadFtpFile=="TRUE") {
+                string LastLoadDate = ClsFtpInfo.LastLoadDate;
+                string Interval = ClsFtpInfo.Interval;
+                string LastLoadTime = ClsFtpInfo.LastLoadTime;
+                DateTime dtLastLoadDate = Convert.ToDateTime(LastLoadDate.Substring(0, 4) + "-" + LastLoadDate.Substring(4, 2) + "-" + LastLoadDate.Substring(6, 2)+" "+ LastLoadTime).AddDays(double.Parse(Interval));
+
+                if (dtLastLoadDate.ToString("yyyyMMdd HH:mm:ss") == dtNow.ToString("yyyyMMdd HH:mm:ss")) {
+                    ClsLogInfo.WriteSapLog("3", "fptzidongxiazai", DateTime.Now.ToString("yyyyMMdd HH:mm:ss"), "自动下载ftp文件开始\t\n");
+                    DateTime _LastLoadDate = Convert.ToDateTime(LastLoadDate.Substring(0, 4) + "-" + LastLoadDate.Substring(4, 2) + "-" + LastLoadDate.Substring(6, 2)).AddDays(double.Parse(Interval));
+                    DataTable dtFile = GetDataSource(false);
+                    List<string> list = ClsFtpDownFile.GetFile(dtFile, _LastLoadDate);
+                    if (list.Count > 0)
+                    {
+                        ClsFtpDownFile ftpdown = new ClsFtpDownFile();
+                        foreach (string filaname in list)
+                        {
+                            ftpdown.Download(filaname);
+                        }
+                    }
+                    ClsFtpInfo.LastLoadDate = _LastLoadDate.ToString("yyyyMMdd");
+                    ClsLogInfo.WriteSapLog("3", "fptzidongxiazai", DateTime.Now.ToString("yyyyMMdd HH:mm:ss"), "自动下载ftp文件结束\t\n");
+                }
+            }
             if (this.cbReadIsDown.Checked)
             {
-                //zhangping修改
-                //if (ClsReadTxtInfo.NextDateTime == dtNow.ToString("yyyyMMdd HH:mm:ss"))
                 if (ClsReadTxtInfo.NextDateTime == dtNow.ToString("yyyyMMdd HH:mm:ss"))
                 {
                     m_dt = GetDataSource(false);
