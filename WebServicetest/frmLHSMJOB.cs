@@ -1272,7 +1272,7 @@ namespace WebServicetest
             int ConvCount = GetConvCount();  //需要转化的数量
 
             this.pbConvData.Maximum = ConvCount;
-            string lbConvText = "共" + ConvCount.ToString() + "个文件";
+            string lbConvText = "共" + ConvCount.ToString() + "个模型";
             int ConvSucessCount = 0;
             int ConvErrorCount = 0;
             bool ret = false;
@@ -1294,15 +1294,16 @@ namespace WebServicetest
                 {
                     ConvErrorCount++;
                 }
-                this.lbReadTxtInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
+                this.lbConvInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
             }
    
             
 
             if (cbConvSWKCSD.Checked)
             {
+                
                 string[] strPara = new string[] { strAEDAT, "" };
-                ClsSapOperate.SapLoadExecute("SWKC", strPara);
+                ret= ClsSapOperate.SapLoadExecute("SWKC", strPara);
 
                 this.pbConvData.Value = this.pbConvData.Value + 1;
                 if (ret)
@@ -1313,13 +1314,13 @@ namespace WebServicetest
                 {
                     ConvErrorCount++;
                 }
-                this.lbReadTxtInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
+                this.lbConvInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
             }
 
             if (cbConvRKSD.Checked)
             {
                 string[] strPara = new string[] { strAEDAT, "" };
-                ClsSapOperate.SapLoadExecute("RK", strPara);
+                ret = ClsSapOperate.SapLoadExecute("RK", strPara);
                 this.pbConvData.Value = this.pbConvData.Value + 1;
                 if (ret)
                 {
@@ -1329,13 +1330,13 @@ namespace WebServicetest
                 {
                     ConvErrorCount++;
                 }
-                this.lbReadTxtInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
+                this.lbConvInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
             }
 
             if (cbConvCKSD.Checked)
             {
                 string[] strPara = new string[] { strAEDAT, "" };
-                ClsSapOperate.SapLoadExecute("CK", strPara);
+                ret = ClsSapOperate.SapLoadExecute("CK", strPara);
 
                 this.pbConvData.Value = this.pbConvData.Value + 1;
                 if (ret)
@@ -1346,7 +1347,7 @@ namespace WebServicetest
                 {
                     ConvErrorCount++;
                 }
-                this.lbReadTxtInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
+                this.lbConvInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
             }
 
            
