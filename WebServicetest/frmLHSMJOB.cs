@@ -500,7 +500,32 @@ namespace WebServicetest
                     }
                     check++;
                 }
-                
+
+
+                if (Convert.ToBoolean(ClsConvertInfo.RKJE))
+                {
+                    if (strDate + " " + ClsConvertInfo.RKDate == dtNow.ToString("yyyyMMdd HH:mm:ss"))
+                    {
+                        string[] strPara = new string[] { strAEDAT, "" };
+                        ClsSapOperate.SapLoadExecute("RKJE", strPara);
+                        all++;
+                    }
+                    check++;
+                }
+
+                if (Convert.ToBoolean(ClsConvertInfo.CKJE))
+                {
+                    if (strDate + " " + ClsConvertInfo.CKDate == dtNow.ToString("yyyyMMdd HH:mm:ss"))
+                    {
+                        string[] strPara = new string[] { strAEDAT, "" };
+                        ClsSapOperate.SapLoadExecute("CKJE", strPara);
+                        all++;
+                    }
+                    check++;
+                }
+
+
+
                 if (all==check)
                 {
                     ClsConvertInfo.LastDateTime = ClsConvertInfo.NextDateTime;
@@ -1186,7 +1211,7 @@ namespace WebServicetest
             this.tbConvSWKCDate.Text = ClsConvertInfo.SWKCDate;
             this.tbConvSWKCDateInfo.Text = ClsConvertInfo.SWKCDate;
 
-            //入库分析
+            //入库情况分析
             if (Convert.ToBoolean(ClsConvertInfo.RK))
             {
                 this.cbRKFX.Checked = true;
@@ -1200,7 +1225,7 @@ namespace WebServicetest
             this.tbConvRKDate.Text = ClsConvertInfo.RKDate;
             this.tbConvRKDateInfo.Text = ClsConvertInfo.RKDate;
 
-            //出库分析
+            //出库情况分析
             if (Convert.ToBoolean(ClsConvertInfo.CK))
             {
                 this.cbCKFX.Checked = true;
@@ -1214,7 +1239,36 @@ namespace WebServicetest
             this.tbConvCKDate.Text = ClsConvertInfo.CKDate;
             this.tbConvCKDateInfo.Text = ClsConvertInfo.CKDate;
 
-           
+            //入库金额分析
+            if (Convert.ToBoolean(ClsConvertInfo.RKJE))
+            {
+                this.cbRKJEFX.Checked = true;
+                this.cbRKJEInfo.Checked = true;
+            }
+            else
+            {
+                this.cbRKJEFX.Checked = false;
+                this.cbRKJEInfo.Checked = false;
+            }
+            this.tbConvRKJEDate.Text = ClsConvertInfo.RKJEDate;
+            this.tbConvRKJEDateInfo.Text = ClsConvertInfo.RKJEDate;
+
+            //出库金额分析
+            if (Convert.ToBoolean(ClsConvertInfo.CKJE))
+            {
+                this.cbCKJEFX.Checked = true;
+                this.cbCKJEInfo.Checked = true;
+            }
+            else
+            {
+                this.cbCKJEFX.Checked = false;
+                this.cbCKJEInfo.Checked = false;
+            }
+            this.tbConvCKJEDate.Text = ClsConvertInfo.CKJEDate;
+            this.tbConvCKJEDateInfo.Text = ClsConvertInfo.CKJEDate;
+
+
+
             this.cbConvIsDown.Checked = ClsConvertInfo.IsDownLoad;
             this.ConventLastTime.Text = ClsConvertInfo.LastDateTime;
         }
@@ -1250,7 +1304,14 @@ namespace WebServicetest
             //出库情况分析
             ClsConvertInfo.CK = this.cbCKFX.Checked.ToString();
             ClsConvertInfo.CKDate = this.tbConvCKDate.Text;
-            
+
+            //入库J金额分析
+            ClsConvertInfo.RKJE = this.cbRKJEFX.Checked.ToString();
+            ClsConvertInfo.RKJEDate = this.tbConvRKJEDate.Text;
+
+            //出库金额分析
+            ClsConvertInfo.CKJE = this.cbCKJEFX.Checked.ToString();
+            ClsConvertInfo.CKJEDate = this.tbConvCKJEDate.Text;
 
             ClsConvertInfo.LastDateTime = this.ConventLastTime.Text;
         }
@@ -1349,8 +1410,39 @@ namespace WebServicetest
                 }
                 this.lbConvInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
             }
+            if (cbConvRKJESD.Checked)
+            {
+                string[] strPara = new string[] { strAEDAT, "" };
+                ret = ClsSapOperate.SapLoadExecute("RKJE", strPara);
 
-           
+                this.pbConvData.Value = this.pbConvData.Value + 1;
+                if (ret)
+                {
+                    ConvSucessCount++;
+                }
+                else
+                {
+                    ConvErrorCount++;
+                }
+                this.lbConvInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
+            }
+            if (cbConvCKJESD.Checked)
+            {
+                string[] strPara = new string[] { strAEDAT, "" };
+                ret = ClsSapOperate.SapLoadExecute("CKJE", strPara);
+
+                this.pbConvData.Value = this.pbConvData.Value + 1;
+                if (ret)
+                {
+                    ConvSucessCount++;
+                }
+                else
+                {
+                    ConvErrorCount++;
+                }
+                this.lbConvInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
+            }
+
         }
 
         private void cbConvIsDown_CheckedChanged(object sender, EventArgs e)

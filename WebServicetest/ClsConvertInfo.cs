@@ -50,8 +50,19 @@ namespace WebServicetest
         /// </summary>
         public static string RK { get; set; }
         public static string RKDate { get; set; }
-   
-       
+        /// <summary>
+        /// 出库金额分析
+        /// </summary>
+        public static string CKJE { get; set; }
+        public static string CKJEDate { get; set; }
+
+        /// <summary>
+        /// 入库金额分析
+        /// </summary>
+        public static string RKJE { get; set; }
+        public static string RKJEDate { get; set; }
+
+
         /// <summary>
         /// 是否下载
         /// </summary>

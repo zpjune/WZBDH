@@ -159,6 +159,8 @@
             this.cbFtpIsDown = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.btFtpInfoSave = new System.Windows.Forms.Button();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -180,8 +182,20 @@
             this.tbFtpDownDateSD = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.tbConvRKJEDate = new System.Windows.Forms.TextBox();
+            this.label56 = new System.Windows.Forms.Label();
+            this.cbRKJEFX = new System.Windows.Forms.CheckBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.tbConvCKJEDate = new System.Windows.Forms.TextBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.cbCKJEFX = new System.Windows.Forms.CheckBox();
+            this.cbConvRKJESD = new System.Windows.Forms.CheckBox();
+            this.cbConvCKJESD = new System.Windows.Forms.CheckBox();
+            this.cbRKJEInfo = new System.Windows.Forms.CheckBox();
+            this.cbCKJEInfo = new System.Windows.Forms.CheckBox();
+            this.tbConvRKJEDateInfo = new System.Windows.Forms.TextBox();
+            this.tbConvCKJEDateInfo = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabHome.SuspendLayout();
@@ -283,11 +297,15 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.tbConvCKJEDateInfo);
+            this.groupBox5.Controls.Add(this.tbConvRKJEDateInfo);
             this.groupBox5.Controls.Add(this.tbConvCKDateInfo);
             this.groupBox5.Controls.Add(this.tbConvRKDateInfo);
             this.groupBox5.Controls.Add(this.tbConvSWKCDateInfo);
             this.groupBox5.Controls.Add(this.rbToDayInfo);
+            this.groupBox5.Controls.Add(this.cbCKJEInfo);
             this.groupBox5.Controls.Add(this.rbLastDayInfo);
+            this.groupBox5.Controls.Add(this.cbRKJEInfo);
             this.groupBox5.Controls.Add(this.cbCKInfo);
             this.groupBox5.Controls.Add(this.cbRKInfo);
             this.groupBox5.Controls.Add(this.cbSWKCInfo);
@@ -471,7 +489,7 @@
             // cbConvIsDown
             // 
             this.cbConvIsDown.AutoSize = true;
-            this.cbConvIsDown.Location = new System.Drawing.Point(206, 181);
+            this.cbConvIsDown.Location = new System.Drawing.Point(206, 203);
             this.cbConvIsDown.Name = "cbConvIsDown";
             this.cbConvIsDown.Size = new System.Drawing.Size(96, 16);
             this.cbConvIsDown.TabIndex = 38;
@@ -650,6 +668,8 @@
             this.groupBox6.Controls.Add(this.pbConvData);
             this.groupBox6.Controls.Add(this.lbConvInfo);
             this.groupBox6.Controls.Add(this.btConvHand);
+            this.groupBox6.Controls.Add(this.cbConvCKJESD);
+            this.groupBox6.Controls.Add(this.cbConvRKJESD);
             this.groupBox6.Controls.Add(this.cbConvCKSD);
             this.groupBox6.Controls.Add(this.cbConvRKSD);
             this.groupBox6.Controls.Add(this.cbConvSWKCSD);
@@ -705,9 +725,9 @@
             this.cbConvCKSD.AutoSize = true;
             this.cbConvCKSD.Location = new System.Drawing.Point(215, 67);
             this.cbConvCKSD.Name = "cbConvCKSD";
-            this.cbConvCKSD.Size = new System.Drawing.Size(108, 16);
+            this.cbConvCKSD.Size = new System.Drawing.Size(96, 16);
             this.cbConvCKSD.TabIndex = 60;
-            this.cbConvCKSD.Text = "出库清情况分析";
+            this.cbConvCKSD.Text = "出库情况分析";
             this.cbConvCKSD.UseVisualStyleBackColor = true;
             // 
             // cbConvRKSD
@@ -1209,8 +1229,16 @@
             this.tabDataLoad.Controls.Add(this.ConventLastTime);
             this.tabDataLoad.Controls.Add(this.label53);
             this.tabDataLoad.Controls.Add(this.btConvSave);
+            this.tabDataLoad.Controls.Add(this.cbCKJEFX);
+            this.tabDataLoad.Controls.Add(this.cbRKJEFX);
             this.tabDataLoad.Controls.Add(this.cbCKFX);
+            this.tabDataLoad.Controls.Add(this.label58);
+            this.tabDataLoad.Controls.Add(this.label56);
+            this.tabDataLoad.Controls.Add(this.tbConvCKJEDate);
             this.tabDataLoad.Controls.Add(this.label40);
+            this.tabDataLoad.Controls.Add(this.label57);
+            this.tabDataLoad.Controls.Add(this.tbConvRKJEDate);
+            this.tabDataLoad.Controls.Add(this.label45);
             this.tabDataLoad.Controls.Add(this.tbConvCKDate);
             this.tabDataLoad.Controls.Add(this.label41);
             this.tabDataLoad.Controls.Add(this.cbRKFX);
@@ -1240,7 +1268,7 @@
             // 
             this.label54.AutoSize = true;
             this.label54.ForeColor = System.Drawing.Color.Red;
-            this.label54.Location = new System.Drawing.Point(472, 298);
+            this.label54.Location = new System.Drawing.Point(472, 396);
             this.label54.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(167, 12);
@@ -1249,7 +1277,7 @@
             // 
             // ConventLastTime
             // 
-            this.ConventLastTime.Location = new System.Drawing.Point(234, 294);
+            this.ConventLastTime.Location = new System.Drawing.Point(234, 392);
             this.ConventLastTime.Margin = new System.Windows.Forms.Padding(2);
             this.ConventLastTime.Name = "ConventLastTime";
             this.ConventLastTime.Size = new System.Drawing.Size(221, 21);
@@ -1258,7 +1286,7 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(141, 298);
+            this.label53.Location = new System.Drawing.Point(141, 396);
             this.label53.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(77, 12);
@@ -1267,7 +1295,7 @@
             // 
             // btConvSave
             // 
-            this.btConvSave.Location = new System.Drawing.Point(379, 327);
+            this.btConvSave.Location = new System.Drawing.Point(380, 428);
             this.btConvSave.Name = "btConvSave";
             this.btConvSave.Size = new System.Drawing.Size(75, 23);
             this.btConvSave.TabIndex = 52;
@@ -1536,6 +1564,26 @@
             this.btFtpInfoSave.UseVisualStyleBackColor = true;
             this.btFtpInfoSave.Click += new System.EventHandler(this.btFtpInfoSave_Click_1);
             // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.ForeColor = System.Drawing.Color.Red;
+            this.label44.Location = new System.Drawing.Point(496, 51);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(89, 12);
+            this.label44.TabIndex = 31;
+            this.label44.Text = "192.168.1.2:21";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(496, 144);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 12);
+            this.label4.TabIndex = 31;
+            this.label4.Text = "E://pathdic";
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -1724,25 +1772,137 @@
             this.label10.TabIndex = 30;
             this.label10.Text = "时间格式YYYYmmdd 如20170101";
             // 
-            // label4
+            // label45
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(496, 144);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 12);
-            this.label4.TabIndex = 31;
-            this.label4.Text = "E://pathdic";
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(141, 307);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(77, 12);
+            this.label45.TabIndex = 40;
+            this.label45.Text = "自动下载时间";
             // 
-            // label44
+            // tbConvRKJEDate
             // 
-            this.label44.AutoSize = true;
-            this.label44.ForeColor = System.Drawing.Color.Red;
-            this.label44.Location = new System.Drawing.Point(496, 51);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(89, 12);
-            this.label44.TabIndex = 31;
-            this.label44.Text = "192.168.1.2:21";
+            this.tbConvRKJEDate.Location = new System.Drawing.Point(234, 302);
+            this.tbConvRKJEDate.Name = "tbConvRKJEDate";
+            this.tbConvRKJEDate.Size = new System.Drawing.Size(221, 21);
+            this.tbConvRKJEDate.TabIndex = 41;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.ForeColor = System.Drawing.Color.Red;
+            this.label56.Location = new System.Drawing.Point(470, 306);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(179, 12);
+            this.label56.TabIndex = 42;
+            this.label56.Text = "时间格式HH24:mm:ss 如08:00:00";
+            // 
+            // cbRKJEFX
+            // 
+            this.cbRKJEFX.AutoSize = true;
+            this.cbRKJEFX.Location = new System.Drawing.Point(143, 280);
+            this.cbRKJEFX.Name = "cbRKJEFX";
+            this.cbRKJEFX.Size = new System.Drawing.Size(96, 16);
+            this.cbRKJEFX.TabIndex = 43;
+            this.cbRKJEFX.Text = "入库金额分析";
+            this.cbRKJEFX.UseVisualStyleBackColor = true;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(141, 359);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(77, 12);
+            this.label57.TabIndex = 40;
+            this.label57.Text = "自动下载时间";
+            // 
+            // tbConvCKJEDate
+            // 
+            this.tbConvCKJEDate.Location = new System.Drawing.Point(234, 354);
+            this.tbConvCKJEDate.Name = "tbConvCKJEDate";
+            this.tbConvCKJEDate.Size = new System.Drawing.Size(221, 21);
+            this.tbConvCKJEDate.TabIndex = 41;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.ForeColor = System.Drawing.Color.Red;
+            this.label58.Location = new System.Drawing.Point(470, 358);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(179, 12);
+            this.label58.TabIndex = 42;
+            this.label58.Text = "时间格式HH24:mm:ss 如08:00:00";
+            // 
+            // cbCKJEFX
+            // 
+            this.cbCKJEFX.AutoSize = true;
+            this.cbCKJEFX.Location = new System.Drawing.Point(143, 332);
+            this.cbCKJEFX.Name = "cbCKJEFX";
+            this.cbCKJEFX.Size = new System.Drawing.Size(96, 16);
+            this.cbCKJEFX.TabIndex = 43;
+            this.cbCKJEFX.Text = "出库情况分析";
+            this.cbCKJEFX.UseVisualStyleBackColor = true;
+            // 
+            // cbConvRKJESD
+            // 
+            this.cbConvRKJESD.AutoSize = true;
+            this.cbConvRKJESD.Location = new System.Drawing.Point(25, 105);
+            this.cbConvRKJESD.Name = "cbConvRKJESD";
+            this.cbConvRKJESD.Size = new System.Drawing.Size(96, 16);
+            this.cbConvRKJESD.TabIndex = 57;
+            this.cbConvRKJESD.Text = "入库金额分析";
+            this.cbConvRKJESD.UseVisualStyleBackColor = true;
+            // 
+            // cbConvCKJESD
+            // 
+            this.cbConvCKJESD.AutoSize = true;
+            this.cbConvCKJESD.Location = new System.Drawing.Point(215, 105);
+            this.cbConvCKJESD.Name = "cbConvCKJESD";
+            this.cbConvCKJESD.Size = new System.Drawing.Size(96, 16);
+            this.cbConvCKJESD.TabIndex = 60;
+            this.cbConvCKJESD.Text = "出库金额分析";
+            this.cbConvCKJESD.UseVisualStyleBackColor = true;
+            // 
+            // cbRKJEInfo
+            // 
+            this.cbRKJEInfo.AutoSize = true;
+            this.cbRKJEInfo.Enabled = false;
+            this.cbRKJEInfo.Location = new System.Drawing.Point(83, 161);
+            this.cbRKJEInfo.Name = "cbRKJEInfo";
+            this.cbRKJEInfo.Size = new System.Drawing.Size(96, 16);
+            this.cbRKJEInfo.TabIndex = 69;
+            this.cbRKJEInfo.Text = "入库金额分析";
+            this.cbRKJEInfo.UseVisualStyleBackColor = true;
+            // 
+            // cbCKJEInfo
+            // 
+            this.cbCKJEInfo.AutoSize = true;
+            this.cbCKJEInfo.Enabled = false;
+            this.cbCKJEInfo.Location = new System.Drawing.Point(402, 161);
+            this.cbCKJEInfo.Name = "cbCKJEInfo";
+            this.cbCKJEInfo.Size = new System.Drawing.Size(96, 16);
+            this.cbCKJEInfo.TabIndex = 70;
+            this.cbCKJEInfo.Text = "出库金额分析";
+            this.cbCKJEInfo.UseVisualStyleBackColor = true;
+            // 
+            // tbConvRKJEDateInfo
+            // 
+            this.tbConvRKJEDateInfo.Enabled = false;
+            this.tbConvRKJEDateInfo.Location = new System.Drawing.Point(206, 159);
+            this.tbConvRKJEDateInfo.Name = "tbConvRKJEDateInfo";
+            this.tbConvRKJEDateInfo.ReadOnly = true;
+            this.tbConvRKJEDateInfo.Size = new System.Drawing.Size(123, 21);
+            this.tbConvRKJEDateInfo.TabIndex = 76;
+            // 
+            // tbConvCKJEDateInfo
+            // 
+            this.tbConvCKJEDateInfo.Enabled = false;
+            this.tbConvCKJEDateInfo.Location = new System.Drawing.Point(527, 159);
+            this.tbConvCKJEDateInfo.Name = "tbConvCKJEDateInfo";
+            this.tbConvCKJEDateInfo.ReadOnly = true;
+            this.tbConvCKJEDateInfo.Size = new System.Drawing.Size(123, 21);
+            this.tbConvCKJEDateInfo.TabIndex = 78;
             // 
             // frmLHSMJOB
             // 
@@ -1942,5 +2102,19 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox cbCKJEFX;
+        private System.Windows.Forms.CheckBox cbRKJEFX;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.TextBox tbConvCKJEDate;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.TextBox tbConvRKJEDate;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.CheckBox cbConvCKJESD;
+        private System.Windows.Forms.CheckBox cbConvRKJESD;
+        private System.Windows.Forms.TextBox tbConvCKJEDateInfo;
+        private System.Windows.Forms.TextBox tbConvRKJEDateInfo;
+        private System.Windows.Forms.CheckBox cbCKJEInfo;
+        private System.Windows.Forms.CheckBox cbRKJEInfo;
     }
 }

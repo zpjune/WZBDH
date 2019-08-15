@@ -49,7 +49,9 @@
     <Compile Include="ClsLogInfo.cs" />
     <Compile Include="ClsLogMail.cs" />
     <Compile Include="LoadWZ\ClsDataLoadCK.cs" />
+    <Compile Include="LoadWZ\ClsDataLoadCKJE.cs" />
     <Compile Include="LoadWZ\ClsDataLoadRK.cs" />
+    <Compile Include="LoadWZ\ClsDataLoadRKJE.cs" />
     <Compile Include="LoadWZ\ClsDataLoadSWKC.cs" />
     <Compile Include="LoadWZ\ClsDataLoadZWKC.cs" />
     <Compile Include="Load\ClsDataLoadCG.cs" />

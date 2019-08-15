@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace LHSM.HB.ObjSapForRemoting
@@ -52,33 +53,87 @@ namespace LHSM.HB.ObjSapForRemoting
                                 totalZDHSL = totalZDHSL + double.Parse(item["ZDHSL"].ToString());
                                 if (LABST > totalZDHSL)
                                 {
-                                    continue;//根据mard库存按工厂、物料码、库存地点，分组，回找入库通知单，直到入库通知单数量和大于或等于mard数量
-                                }
-                                else
-                                {//插入库存模型表CONVERT_SWKC
-
+                                    //根据mard库存按工厂、物料码、库存地点，分组，回找入库通知单，直到入库通知单数量和大于或等于mard数量
+                                    //将近期入库通知单收货数量小于库存的都插入实物库存表CONVERT_SWKC
                                     strBuilder.Append(" INSERT INTO CONVERT_SWKC (WERKS,ZDHTZD,ZITEM,MATKL,MATNR,MAKTX," +
-                                        "MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,YXQ) VALUES(");
-                                    strBuilder.Append(" '"+rowMard["WERKS"].ToString() +"',");
-                                    strBuilder.Append(" '"+item["ZDHTZD"] +"',");
+                                       "MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,YXQ) VALUES(");
+                                    strBuilder.Append(" '" + rowMard["WERKS"].ToString() + "',");
+                                    strBuilder.Append(" '" + item["ZDHTZD"] + "',");
                                     strBuilder.Append(" '" + item["ZITEM"] + "',");
                                     strBuilder.Append(" '" + item["MATKL"] + "',");
                                     strBuilder.Append(" '" + item["MATNR"] + "',");
-                                    strBuilder.Append(" '" + item["MAKTX"].ToString().Trim()+ "',");
+                                    strBuilder.Append(" '" + item["MAKTX"].ToString().Trim() + "',");
                                     strBuilder.Append(" '" + item["JBJLDW"].ToString().Trim().Replace('\'', ' ').Replace('(', ' ').Replace(')', ' ').Replace('）', ' ').Replace('（', ' ') + "',");
-                                    strBuilder.Append(" '" + rowMard["LABST"] + "',");
+                                    strBuilder.Append(" '" + item["ZDHSL"].ToString() + "',");
                                     strBuilder.Append(" '" + rowMard["LGORT"] + "',");
-                                    strBuilder.Append(" '',");
-                                    if (item["BUDAT"] !=null|| item["BUDAT"].ToString()!="00000000")
+                                    strBuilder.Append(" '',");//仓位
+                                    if (item["BUDAT"] != null || item["BUDAT"].ToString() != "00000000")
                                     {
                                         strBuilder.Append(" '" + item["BUDAT"] + "',");//入库单有过账日期就存过账日期
                                     }
-                                    else {
+                                    else
+                                    {
                                         strBuilder.Append(" '" + item["ZCJRQ"] + "',");//没有过账日期就存创建日期
                                     }
                                     strBuilder.Append(" '" + rowMard["DW_NAME"] + "',");
-                                    strBuilder.AppendLine(" '" + rowMard["KCDD_NAME"].ToString().Replace('(',' ').Replace(')', ' ').Replace('）', ' ').Replace('（', ' ').Replace('\'', ' ') + "','');");
-                                    break; 
+                                    strBuilder.AppendLine(" '" + rowMard["KCDD_NAME"].ToString().Replace('(', ' ').Replace(')', ' ').Replace('）', ' ').Replace('（', ' ').Replace('\'', ' ') + "','');");
+
+                                }
+                                else
+                                {//如果入库单收货数量和大于等于库存时 用和减去库存数 就是最后一条通知单的收货总数量
+                                    if (LABST == totalZDHSL)
+                                    {
+
+                                        strBuilder.Append(" INSERT INTO CONVERT_SWKC (WERKS,ZDHTZD,ZITEM,MATKL,MATNR,MAKTX," +
+                                            "MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,YXQ) VALUES(");
+                                        strBuilder.Append(" '" + rowMard["WERKS"].ToString() + "',");
+                                        strBuilder.Append(" '" + item["ZDHTZD"] + "',");
+                                        strBuilder.Append(" '" + item["ZITEM"] + "',");
+                                        strBuilder.Append(" '" + item["MATKL"] + "',");
+                                        strBuilder.Append(" '" + item["MATNR"] + "',");
+                                        strBuilder.Append(" '" + item["MAKTX"].ToString().Trim() + "',");
+                                        strBuilder.Append(" '" + item["JBJLDW"].ToString().Trim().Replace('\'', ' ').Replace('(', ' ').Replace(')', ' ').Replace('）', ' ').Replace('（', ' ') + "',");
+                                        strBuilder.Append(" '" + item["ZDHSL"].ToString() + "',");
+                                        strBuilder.Append(" '" + rowMard["LGORT"] + "',");
+                                        strBuilder.Append(" '',");//仓位
+                                        if (item["BUDAT"] != null || item["BUDAT"].ToString() != "00000000")
+                                        {
+                                            strBuilder.Append(" '" + item["BUDAT"] + "',");//入库单有过账日期就存过账日期
+                                        }
+                                        else
+                                        {
+                                            strBuilder.Append(" '" + item["ZCJRQ"] + "',");//没有过账日期就存创建日期
+                                        }
+                                        strBuilder.Append(" '" + rowMard["DW_NAME"] + "',");
+                                        strBuilder.AppendLine(" '" + rowMard["KCDD_NAME"].ToString().Replace('(', ' ').Replace(')', ' ').Replace('）', ' ').Replace('（', ' ').Replace('\'', ' ') + "','');");
+                                        break;
+                                    }
+                                    else {
+                                        double a = double.Parse(item["ZDHSL"].ToString()) - (totalZDHSL-LABST);
+                                        strBuilder.Append(" INSERT INTO CONVERT_SWKC (WERKS,ZDHTZD,ZITEM,MATKL,MATNR,MAKTX," +
+                                            "MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,YXQ) VALUES(");
+                                        strBuilder.Append(" '" + rowMard["WERKS"].ToString() + "',");
+                                        strBuilder.Append(" '" + item["ZDHTZD"] + "',");
+                                        strBuilder.Append(" '" + item["ZITEM"] + "',");
+                                        strBuilder.Append(" '" + item["MATKL"] + "',");
+                                        strBuilder.Append(" '" + item["MATNR"] + "',");
+                                        strBuilder.Append(" '" + item["MAKTX"].ToString().Trim() + "',");
+                                        strBuilder.Append(" '" + item["JBJLDW"].ToString().Trim().Replace('\'', ' ').Replace('(', ' ').Replace(')', ' ').Replace('）', ' ').Replace('（', ' ') + "',");
+                                        strBuilder.Append(" '" + a + "',");
+                                        strBuilder.Append(" '" + rowMard["LGORT"] + "',");
+                                        strBuilder.Append(" '',");//仓位
+                                        if (item["BUDAT"] != null || item["BUDAT"].ToString() != "00000000")
+                                        {
+                                            strBuilder.Append(" '" + item["BUDAT"] + "',");//入库单有过账日期就存过账日期
+                                        }
+                                        else
+                                        {
+                                            strBuilder.Append(" '" + item["ZCJRQ"] + "',");//没有过账日期就存创建日期
+                                        }
+                                        strBuilder.Append(" '" + rowMard["DW_NAME"] + "',");
+                                        strBuilder.AppendLine(" '" + rowMard["KCDD_NAME"].ToString().Replace('(', ' ').Replace(')', ' ').Replace('）', ' ').Replace('（', ' ').Replace('\'', ' ') + "','');");
+                                        break;
+                                    }
                                 }
                             }
                         }

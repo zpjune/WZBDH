@@ -244,6 +244,18 @@ namespace WebServicetest
                         case "CKDate":
                             ClsConvertInfo.CKDate = Specialcharacter(xmlEle.InnerText.Trim(), true); 
                             break;
+                        case "RKJE":
+                            ClsConvertInfo.RK = Specialcharacter(xmlEle.InnerText.Trim(), true);
+                            break;
+                        case "RKJEDate":
+                            ClsConvertInfo.RKDate = Specialcharacter(xmlEle.InnerText.Trim(), true);
+                            break;
+                        case "CKJE":
+                            ClsConvertInfo.CK = Specialcharacter(xmlEle.InnerText.Trim(), true);
+                            break;
+                        case "CKJEDate":
+                            ClsConvertInfo.CKDate = Specialcharacter(xmlEle.InnerText.Trim(), true);
+                            break;
                         case "IsDownLoad":
                             ClsConvertInfo.IsDownLoad = Convert.ToBoolean(Specialcharacter(xmlEle.InnerText.Trim(), true));
                             break;
@@ -295,6 +307,11 @@ namespace WebServicetest
                         xmlNode.SelectSingleNode("RKDate").InnerText = Specialcharacter(ClsConvertInfo.RKDate, false);
                         xmlNode.SelectSingleNode("CK").InnerText = Specialcharacter(ClsConvertInfo.CK.ToString(), false);
                         xmlNode.SelectSingleNode("CKDate").InnerText = Specialcharacter(ClsConvertInfo.CKDate, false);
+
+                        xmlNode.SelectSingleNode("RKJE").InnerText = Specialcharacter(ClsConvertInfo.RKJE, false);
+                        xmlNode.SelectSingleNode("RKJEDate").InnerText = Specialcharacter(ClsConvertInfo.RKJEDate, false);
+                        xmlNode.SelectSingleNode("CKJE").InnerText = Specialcharacter(ClsConvertInfo.CKJE.ToString(), false);
+                        xmlNode.SelectSingleNode("CKJEDate").InnerText = Specialcharacter(ClsConvertInfo.CKJEDate, false);
                     }
                 }
                 xmlDoc.Save("LHSMTimerJobConfig.xml");
