@@ -52,7 +52,7 @@ namespace LHSM.HB.ObjSapForRemoting
                                     JOIN MARA B ON A.MATNR = B.MATNR
                                     JOIN WZ_WLZ C ON C.PMCODE = B.MATKL
                                     JOIN WZ_DW D ON D.DW_CODE = A.BWKEY
-                                    WHERE A.DLDATE >= '" + stedate + "' ; end");
+                                    WHERE A.DLDATE >= '" + stedate + "' ; commit; end");
                         Result= m_Conn.ExecuteSql(strBuilder.ToString());
                     }
                     strBuilder.Length = 0;//清空
@@ -60,14 +60,14 @@ namespace LHSM.HB.ObjSapForRemoting
                 else {
                     //是第一次转换，先删除操作 ，再insert
                     //  插入CONVERT_ZWKC表模型
-                    string strSqlEkko = @"INSERT INTO  CONVERT_ZWKC
+                    string strSqlEkko = @" begin INSERT INTO  CONVERT_ZWKC
                                                  (MANDT,MATNR,BWKEY,BWTAR,BWKEY_NAME,SALK3,DLCODE,DLNAME,ZLCODE,ZLNAME,XLCODE,XLNAME,MATKL,PMNAME)
                                     SELECT A.BWKEY,D.DW_NAME,A.SALK3,C.DLCODE,C.DLNAME,C.ZLCODE,C.ZLNAME,C.XLCODE,C.XLNAME,B.MATKL,C.PMNAME
                                     FROM MBEW A 
                                     JOIN MARA B ON A.MATNR=B.MATNR
                                     JOIN WZ_WLZ C ON C.PMCODE=B.MATKL
                                     JOIN WZ_DW D ON D.DW_CODE=A.BWKEY 
-                                    WHERE A.DLDATE>='" + stedate + "'";
+                                    WHERE A.DLDATE>='" + stedate + "' ; commit;end ;";
                     Result = m_Conn.ExecuteSql(strSqlEkko);
                 }
             }
