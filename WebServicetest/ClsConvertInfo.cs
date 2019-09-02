@@ -62,6 +62,12 @@ namespace WebServicetest
         public static string RKJE { get; set; }
         public static string RKJEDate { get; set; }
 
+        /// <summary>
+        /// 保管员工作量分析
+        /// </summary>
+        public static string BGY { get; set; }
+        public static string BGYDate { get; set; }
+
 
         /// <summary>
         /// 是否下载

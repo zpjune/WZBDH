@@ -111,6 +111,15 @@ namespace LHSM.HB.ObjSapForRemoting
                 case "CK":
                     strResult = "ClsDataLoadCK";
                     break;
+                case "RKJE":
+                    strResult = "ClsDataLoadRKJE";
+                    break;
+                case "CKJE":
+                    strResult = "ClsDataLoadCKJE";
+                    break;
+                case "BGY":
+                    strResult = "ClsDataLoadBGY";
+                    break;
             }
 
             return strResult;

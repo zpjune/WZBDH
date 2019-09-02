@@ -245,27 +245,31 @@ namespace WebServicetest
                             ClsConvertInfo.CKDate = Specialcharacter(xmlEle.InnerText.Trim(), true); 
                             break;
                         case "RKJE":
-                            ClsConvertInfo.RK = Specialcharacter(xmlEle.InnerText.Trim(), true);
+                            ClsConvertInfo.RKJE = Specialcharacter(xmlEle.InnerText.Trim(), true);
                             break;
                         case "RKJEDate":
-                            ClsConvertInfo.RKDate = Specialcharacter(xmlEle.InnerText.Trim(), true);
+                            ClsConvertInfo.RKJEDate = Specialcharacter(xmlEle.InnerText.Trim(), true);
                             break;
                         case "CKJE":
-                            ClsConvertInfo.CK = Specialcharacter(xmlEle.InnerText.Trim(), true);
+                            ClsConvertInfo.CKJE = Specialcharacter(xmlEle.InnerText.Trim(), true);
                             break;
                         case "CKJEDate":
-                            ClsConvertInfo.CKDate = Specialcharacter(xmlEle.InnerText.Trim(), true);
+                            ClsConvertInfo.CKJEDate = Specialcharacter(xmlEle.InnerText.Trim(), true);
+                            break;
+                        case "BGY":
+                            ClsConvertInfo.BGY = Specialcharacter(xmlEle.InnerText.Trim(), true);
+                            break;
+                        case "BGYDate":
+                            ClsConvertInfo.BGYDate = Specialcharacter(xmlEle.InnerText.Trim(), true);
                             break;
                         case "IsDownLoad":
                             ClsConvertInfo.IsDownLoad = Convert.ToBoolean(Specialcharacter(xmlEle.InnerText.Trim(), true));
                             break;
-                        
                     }
 
                 }
 
                 #endregion
-
             }
             catch (Exception exception)
             {
@@ -312,6 +316,8 @@ namespace WebServicetest
                         xmlNode.SelectSingleNode("RKJEDate").InnerText = Specialcharacter(ClsConvertInfo.RKJEDate, false);
                         xmlNode.SelectSingleNode("CKJE").InnerText = Specialcharacter(ClsConvertInfo.CKJE.ToString(), false);
                         xmlNode.SelectSingleNode("CKJEDate").InnerText = Specialcharacter(ClsConvertInfo.CKJEDate, false);
+                        xmlNode.SelectSingleNode("BGY").InnerText = Specialcharacter(ClsConvertInfo.BGY.ToString(), false);
+                        xmlNode.SelectSingleNode("BGYDate").InnerText = Specialcharacter(ClsConvertInfo.BGYDate, false);
                     }
                 }
                 xmlDoc.Save("LHSMTimerJobConfig.xml");

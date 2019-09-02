@@ -1267,7 +1267,19 @@ namespace WebServicetest
             this.tbConvCKJEDate.Text = ClsConvertInfo.CKJEDate;
             this.tbConvCKJEDateInfo.Text = ClsConvertInfo.CKJEDate;
 
-
+            //出库金额分析
+            if (Convert.ToBoolean(ClsConvertInfo.BGY))
+            {
+                this.cbBGYFX.Checked = true;
+                this.cbBGYInfo.Checked = true;
+            }
+            else
+            {
+                this.cbBGYFX.Checked = false;
+                this.cbBGYInfo.Checked = false;
+            }
+            this.tbConvBGYDate.Text = ClsConvertInfo.BGYDate;
+            this.tbConvBGYDateInfo.Text = ClsConvertInfo.BGYDate;
 
             this.cbConvIsDown.Checked = ClsConvertInfo.IsDownLoad;
             this.ConventLastTime.Text = ClsConvertInfo.LastDateTime;
@@ -1312,6 +1324,10 @@ namespace WebServicetest
             //出库金额分析
             ClsConvertInfo.CKJE = this.cbCKJEFX.Checked.ToString();
             ClsConvertInfo.CKJEDate = this.tbConvCKJEDate.Text;
+
+            //保管员工作量分析
+            ClsConvertInfo.BGY  = this.cbBGYFX.Checked.ToString();
+            ClsConvertInfo.BGYDate = this.tbConvBGYDate.Text;
 
             ClsConvertInfo.LastDateTime = this.ConventLastTime.Text;
         }
@@ -1442,7 +1458,22 @@ namespace WebServicetest
                 }
                 this.lbConvInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
             }
+            if (cbConvBGYSD.Checked)
+            {
+                string[] strPara = new string[] { strAEDAT, "" };
+                ret = ClsSapOperate.SapLoadExecute("BGY", strPara);
 
+                this.pbConvData.Value = this.pbConvData.Value + 1;
+                if (ret)
+                {
+                    ConvSucessCount++;
+                }
+                else
+                {
+                    ConvErrorCount++;
+                }
+                this.lbConvInfo.Text = lbConvText + ",成功：" + ConvSucessCount + "个，" + "失败" + ConvErrorCount + "个。";
+            }
         }
 
         private void cbConvIsDown_CheckedChanged(object sender, EventArgs e)
@@ -1474,6 +1505,15 @@ namespace WebServicetest
             }
 
             if (cbConvCKSD.Checked)
+            {
+                count++;
+            }
+            if (cbConvRKJESD.Checked)
+            {
+                count++;
+            }
+
+            if (cbConvCKJESD.Checked)
             {
                 count++;
             }

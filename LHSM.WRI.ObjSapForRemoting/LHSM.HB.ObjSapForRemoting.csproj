@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ClsLogInfo.cs" />
     <Compile Include="ClsLogMail.cs" />
+    <Compile Include="LoadWZ\ClsDataLoadBGY.cs" />
     <Compile Include="LoadWZ\ClsDataLoadCK.cs" />
     <Compile Include="LoadWZ\ClsDataLoadCKJE.cs" />
     <Compile Include="LoadWZ\ClsDataLoadRK.cs" />
