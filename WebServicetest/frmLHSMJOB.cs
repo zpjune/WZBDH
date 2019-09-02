@@ -1517,6 +1517,10 @@ namespace WebServicetest
             {
                 count++;
             }
+            if (cbConvBGYSD.Checked)
+            {
+                count++;
+            }
             return count;
         }
 
