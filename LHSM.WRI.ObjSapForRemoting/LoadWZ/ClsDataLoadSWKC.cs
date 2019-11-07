@@ -99,7 +99,7 @@ namespace LHSM.HB.ObjSapForRemoting
                                     //根据mard库存按工厂、物料码、库存地点，分组，回找入库通知单，直到入库通知单数量和大于或等于mard数量
                                     //将近期入库通知单收货数量小于库存的都插入实物库存表CONVERT_SWKC
                                     strBuilder.Append("  INSERT INTO CONVERT_SWKC (WERKS,ZDHTZD,ZITEM,MATKL,MATNR,MAKTX," +
-                                       "MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,ZSTATUS,YXQ,DLDATE) VALUES(");
+                                       "MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,ZSTATUS,YXQ,DLDATE,KCTYPE) VALUES(");
                                     strBuilder.Append(" '" + rowLQUA["WERKS"].ToString() + "',");
                                     strBuilder.Append(" '" + item["ZDHTZD"] + "',");
                                     strBuilder.Append(" '" + item["ZITEM"] + "',");
@@ -130,7 +130,7 @@ namespace LHSM.HB.ObjSapForRemoting
                                     strBuilder.Append(" '" + item["ERDAT"]?.ToString() + "',");
                                     strBuilder.Append(" '" + rowLQUA["DW_NAME"] + "',");
                                     strBuilder.AppendLine(" '" + rowLQUA["KCDD_NAME"].ToString().Replace('(', ' ').Replace(')', ' ').Replace('）', ' ').Replace('（', ' ').Replace('\'', ' ') +
-                                        "','04','','"+ dldate + "');  ");
+                                        "','04','','"+ dldate + "',0);  ");
 
                                 }
                             }
