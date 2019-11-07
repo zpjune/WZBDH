@@ -141,7 +141,7 @@ namespace LHSM.HB.ObjSapForRemoting
                     {
                         strBuilder.Append(" COMMIT; end ; ");
                         strDetail.Append(" COMMIT; end ; ");
-                        if (m_Conn.ExecuteSql(" begin delete from CONVERT_SWKC;DELETE FROM CONVERT_SWKCDETAIL; commit; end; "))
+                        if (m_Conn.ExecuteSql(" begin delete from CONVERT_SWKC where KCTYPE=0;DELETE FROM CONVERT_SWKCDETAIL; commit; end; "))
                         {
                             Result = m_Conn.ExecuteSql(strDetail.ToString());//执行失败竟然也返回true
                             if (Result)
@@ -164,9 +164,9 @@ namespace LHSM.HB.ObjSapForRemoting
                                     ClsErrorLogInfo.WriteSapLog("1", "CONVERT_SWKC", "ALL", p_para.Sap_AEDAT, "插入CONVERT_SWKC表上架部分成功");
                                     strBuilder.Length = 0;
                                     strBuilder.Append(@" begin INSERT INTO CONVERT_SWKC (WERKS,ZDHTZD,ZITEM,MATKL,MATNR,MAKTX,
-                                                    MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,ZSTATUS,YXQ,DLDATE)                                          
+                                                    MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,ZSTATUS,YXQ,DLDATE,KCTYPE)                                          
                                                      select t.WERKS,t.ZDHTZD,t.ZITEM,d.MATKL,  t.MATNR,d.MAKTX,
-                                                     e.JBJLDW,t.ZDHSL,t.LGORT,'' LGPLA ,t.ZCJRQ, b.DW_NAME,c.KCDD_NAME,'03','','" + dldate + "' ");
+                                                     e.JBJLDW,t.ZDHSL,t.LGORT,'' LGPLA ,t.ZCJRQ, b.DW_NAME,c.KCDD_NAME,'03','','" + dldate + "',0 ");
                                           strBuilder.Append(@" from ZC10MMDG072 t
                                                      join WZ_DW b ON b.DW_CODE=t.Werks
                                                      join WZ_KCDD c ON c.DWCODE=t.WERKS AND c.KCDD_CODE=t.LGORT
