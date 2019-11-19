@@ -34,7 +34,7 @@ namespace LHSM.HB.ObjSapForRemoting
                                     from LQUA t 
                                     join WZ_DW b ON b.DW_CODE=t.Werks
                                     join WZ_KCDD c ON c.DWCODE=t.WERKS AND c.KCDD_CODE=t.LGORT
-                                    where  regexp_like(lgpla,'^[0-9]+[0-9]$') and matnr  in (select matnr from ZC10MMDG085B) 
+                                    where  regexp_like(lgpla,'^[0-9]+[0-9]$')  and substr(t.LGTYP,1,1)<>'9' and matnr  in (select matnr from ZC10MMDG085B) 
                                      GROUP BY t.MATNR,t.WERKS,t.LGORT,substr(t.LGPLA,1,4),b.DW_NAME,c.KCDD_NAME  "; //查询lqua表库存，以上架后的(lgpla为数字的，并且matnr 在085b里有的) 
                 //regexp_like(lgpla,'^[0-9]+[0-9]$')过滤不是数字的
                 DataTable dtLQUA = m_Conn.GetSqlResultToDt(sqlLQUA);
@@ -166,8 +166,9 @@ namespace LHSM.HB.ObjSapForRemoting
                                     strBuilder.Append(@" begin INSERT INTO CONVERT_SWKC (WERKS,ZDHTZD,ZITEM,MATKL,MATNR,MAKTX,
                                                     MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,ZSTATUS,YXQ,DLDATE,KCTYPE)                                          
                                                      select t.WERKS,t.ZDHTZD,t.ZITEM,d.MATKL,  t.MATNR,d.MAKTX,
-                                                     e.JBJLDW,t.ZDHSL,t.LGORT,'' LGPLA ,t.ZCJRQ, b.DW_NAME,c.KCDD_NAME,'03','','" + dldate + "',0 ");
+                                                     e.JBJLDW,k.VMENGE01,t.LGORT,'' LGPLA ,t.ZCJRQ, b.DW_NAME,c.KCDD_NAME,'03','','" + dldate + "',0 ");
                                           strBuilder.Append(@" from ZC10MMDG072 t
+                                                       join ZC10MMDG076 k on t.ZDHTZD =k.ZDHTZD and t.ZITEM=k.ZITEM
                                                      join WZ_DW b ON b.DW_CODE=t.Werks
                                                      join WZ_KCDD c ON c.DWCODE=t.WERKS AND c.KCDD_CODE=t.LGORT
                                                     join    MARA d on d.matnr=t.matnr
