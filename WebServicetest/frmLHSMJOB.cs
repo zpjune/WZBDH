@@ -414,6 +414,7 @@ namespace WebServicetest
                     }
                     ClsFtpInfo.LastLoadDate = _LastLoadDate.ToString("yyyyMMdd");
                     ClsLogInfo.WriteSapLog("3", "fptzidongxiazai", DateTime.Now.ToString("yyyyMMdd HH:mm:ss"), "自动下载ftp文件结束\t\n");
+                    deleteFile(ClsFtpInfo.LocalFilePath);
                 }
             }
             if (this.cbReadIsDown.Checked)
@@ -1587,6 +1588,29 @@ namespace WebServicetest
         private void cbFtpIsDown_CheckedChanged_1(object sender, EventArgs e)
         {
 
+        }
+        private void deleteFile(string srcPath) {
+            //string srcPath = "E:\\OracleTxtData\\DemoTxt\\mm\\";
+            DirectoryInfo dir = new DirectoryInfo(srcPath);
+            FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();  //返回目录中所有文件和子目录
+            foreach (FileSystemInfo i in fileinfo)
+            {
+                if (i is DirectoryInfo)            //判断是否文件夹
+                {
+                   // DirectoryInfo subdir = new DirectoryInfo(i.FullName);
+                   // subdir.Delete(true);          //删除子目录和文件
+                }
+                else
+                {
+                    if (i.Name.Contains("ZC10MMDG072_GZ") || i.Name.Contains("ZC10MMDG078_GZ"))
+                    {
+                        //如果 使用了 streamreader 在删除前 必须先关闭流 ，否则无法删除 sr.close();ZC10MMDG078_GZ
+                        File.Delete(i.FullName);      //删除指定文件
+                        ClsLogInfo.WriteSapLog("3", "DELETE_FTP_GZ", DateTime.Now.ToString("yyyyMMdd HH:mm:ss"), "删除出入库通知单ftp_GZ文件成功\t\n");
+                    }
+
+                }
+            }
         }
     }
 
