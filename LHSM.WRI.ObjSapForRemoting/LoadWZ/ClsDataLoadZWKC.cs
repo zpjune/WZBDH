@@ -30,7 +30,7 @@ namespace LHSM.HB.ObjSapForRemoting
                 //是第一次转换，先删除操作 ，再insert
                 //  插入CONVERT_ZWKC表模型
                 string strSqlEkko = @" begin delete from CONVERT_ZWKC; INSERT INTO  CONVERT_ZWKC (BWKEY,BWKEY_NAME,MATNR,SALK3,DLCODE,DLNAME,ZLCODE,ZLNAME,XLCODE,XLNAME,MATKL,PMNAME,LBKUM,DANJIA,DLDATE)
-                                    SELECT   A.BWKEY,D.DW_NAME,A.MATNR,A.SALK3,C.DLCODE,C.DLNAME,C.ZLCODE,C.ZLNAME,C.XLCODE,C.XLNAME,B.MATKL,C.PMNAME,A.LBKUM,A.SALK3/A.LBKUM,'" + p_para.Sap_AEDAT + "'";
+                                    SELECT   A.BWKEY,D.DW_NAME,A.MATNR,A.SALK3,C.DLCODE,C.DLNAME,C.ZLCODE,C.ZLNAME,C.XLCODE,C.XLNAME,B.MATKL,C.PMNAME,A.LBKUM,A.SALK3/A.LBKUM,'" + DateTime.Now.ToString("yyyy-MM-dd") + "'";
                 strSqlEkko+= @" FROM MBEW A 
                                     JOIN MARA B ON A.MATNR=B.MATNR
                                     JOIN WZ_WLZ C ON C.PMCODE=B.MATKL
@@ -41,7 +41,7 @@ namespace LHSM.HB.ObjSapForRemoting
             catch (Exception exception)
             {
                 Result = false;
-                ClsErrorLogInfo.WriteSapLog("1", "CONVERT_ZWKC", "ALL", p_para.Sap_AEDAT, "插入CONVERT_ZWKC表过程中发生异常:\t\n" + exception);
+                ClsErrorLogInfo.WriteSapLog("1", "CONVERT_ZWKC", "ALL", DateTime.Now.ToString("yyyy-MM-dd"), "插入CONVERT_ZWKC表过程中发生异常:\t\n" + exception);
                 return Result;
             }
             return Result;

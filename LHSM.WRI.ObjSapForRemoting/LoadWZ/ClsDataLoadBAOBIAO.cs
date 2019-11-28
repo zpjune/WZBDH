@@ -27,7 +27,7 @@ namespace LHSM.HB.ObjSapForRemoting
             if (m_Conn.ExecuteSql(sqlDelete))
             {
                 string sql = "BEGIN  INSERT INTO CONVERT_SWKCDETAILCKJE(WERKS,WERKS_NAME,LGORT,MATNR,GESME,ZCKTZD,ZITEM,DLNAME,PMNAME,DLDATE,CKJE) ";
-                sql += "select A.WERKS,D.DW_NAME,A.LGORT,A.MATNR,A.ZFHSL,A.ZCKTZD,A.ZCITEM,C.DLNAME,C.PMNAME,'" + dldate + "',ROUND(E.SALK3/LBKUM*A.ZFHSL,2)";
+                sql += "select A.WERKS,D.DW_NAME,A.LGORT,A.MATNR,A.ZFHSL,A.ZCKTZD,A.ZCITEM,C.DLNAME,C.PMNAME,'" + DateTime.Now.ToString("yyyy-MM-dd") + "',ROUND(E.SALK3/LBKUM*A.ZFHSL,2)";
                 sql += @" from  ZC10MMDG078 A 
                     JOIN WZ_DW D ON A.WERKS = D.DW_CODE
                     JOIN MBEW E ON E.BWKEY = A.WERKS AND E.MATNR = A.MATNR AND E.SALK3 > 0
@@ -36,15 +36,15 @@ namespace LHSM.HB.ObjSapForRemoting
                 Result = m_Conn.ExecuteSql(sql);
                 if (Result)
                 {
-                    ClsErrorLogInfo.WriteSapLog("1", "CONVERT_SWKCDETAILCKJE", "ALL", p_para.Sap_AEDAT, "插入CONVERT_SWKCDETAILCKJE表成功");
+                    ClsErrorLogInfo.WriteSapLog("1", "CONVERT_SWKCDETAILCKJE", "ALL", DateTime.Now.ToString("yyyy-MM-dd"), "插入CONVERT_SWKCDETAILCKJE表成功");
                 }
                 else
                 {
-                    ClsErrorLogInfo.WriteSapLog("1", "CONVERT_SWKCDETAILCKJE", "ALL", p_para.Sap_AEDAT, "插入CONVERT_SWKCDETAILCKJE表失败");
+                    ClsErrorLogInfo.WriteSapLog("1", "CONVERT_SWKCDETAILCKJE", "ALL", DateTime.Now.ToString("yyyy-MM-dd"), "插入CONVERT_SWKCDETAILCKJE表失败");
                 }
             }
             else {
-                ClsErrorLogInfo.WriteSapLog("1", "CONVERT_SWKCDETAILCKJE", "ALL", p_para.Sap_AEDAT, "删除CONVERT_SWKCDETAILCKJE表失败");
+                ClsErrorLogInfo.WriteSapLog("1", "CONVERT_SWKCDETAILCKJE", "ALL", DateTime.Now.ToString("yyyy-MM-dd"), "删除CONVERT_SWKCDETAILCKJE表失败");
             }
             
         }

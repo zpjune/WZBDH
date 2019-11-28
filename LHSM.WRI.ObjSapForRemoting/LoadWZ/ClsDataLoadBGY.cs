@@ -23,7 +23,7 @@ namespace LHSM.HB.ObjSapForRemoting
                 string dldate = p_para.Sap_AEDAT;
                 m_Conn = ClsUtility.GetConn();
                 strBuilder.Append("BEGIN  ");
-                strBuilder.Append(" DELETE FROM CONVERT_BGYGZL WHERE ERDAT>='"+ dldate + "' ;");//先按选择日期删除数据
+                strBuilder.Append(" DELETE FROM CONVERT_BGYGZL ;");//先按选择日期删除数据
                 strBuilder.Append("  COMMIT ;END;");
                 if (m_Conn.ExecuteSql(strBuilder.ToString()))
                 {
@@ -32,50 +32,50 @@ namespace LHSM.HB.ObjSapForRemoting
                     strBuilder.Append(@" INSERT INTO CONVERT_BGYGZL(WERKS,WERKS_NAME,TZD,ITEMS,MATNR,MATKL,PMNAME,MAKTX,
                                         JBJLDW,NSOLM,ERNAME,WORKER_NAME,TZDTYPE,DLDATE,ERDAT)
                                         select A.WERKS,D.DW_NAME,A.ZDHTZD,A.ZITEM,A.MATNR,E.MATKL,F.PMNAME,E.MAKTX,
-                                        F.JBJLDW,B.NSOLM,B.ERNAM,C.WORKER_NAME,1,'" + dldate + "',ERDAT");
+                                        F.JBJLDW,B.NSOLM,B.ERNAM,C.WORKER_NAME,1,'" + DateTime.Now.ToString("yyyyMMdd") + "',ERDAT");
                     strBuilder.Append(@" from ZC10MMDG072 A
                                         join ZC10MMDG085A B on A.ZDHTZD=B.ZDHTZD and A.ZITEM=B.ZITEM 
                                         join WZ_BGY C on  C.WORKER_CODE=B.ERNAM
                                         join WZ_DW D ON D.DW_CODE=A.WERKS
                                         JOIN MARA E ON E.MATNR=A.MATNR
-                                        JOIN WZ_WLZ F ON F.PMCODE=E.MATKL where B.ERDAT>='" + dldate + "' ;");//根据日期插入入库单相关保管员信息
+                                        JOIN WZ_WLZ F ON F.PMCODE=E.MATKL  ;");//根据日期插入入库单相关保管员信息
                     strBuilder.Append(" commit; end; ");
                     if (m_Conn.ExecuteSql(strBuilder.ToString()))
                     {
-                        ClsErrorLogInfo.WriteSapLog("1", "RKJE", "ALL", p_para.Sap_AEDAT, "模型转换-删除CONVERT_BGYGZL表入库通知单保管员信息成功");
+                        ClsErrorLogInfo.WriteSapLog("1", "RKJE", "ALL", DateTime.Now.ToString("yyyy-MM-dd"), "模型转换-删除CONVERT_BGYGZL表入库通知单保管员信息成功");
                         strBuilder.Length = 0;
                         strBuilder.Append(" begin ");
                         strBuilder.Append(@" INSERT INTO CONVERT_BGYGZL(WERKS,WERKS_NAME,TZD,ITEMS,MATNR,MATKL,PMNAME,MAKTX,
                                         JBJLDW,NSOLM,ERNAME,WORKER_NAME,TZDTYPE,DLDATE,ERDAT)
                                         select A.WERKS,D.DW_NAME,A.ZCKTZD,A.ZCITEM,A.MATNR,E.MATKL,F.PMNAME,E.MAKTX,
-                                        F.JBJLDW,B.NSOLM,B.ERNAM,C.WORKER_NAME,2,'" + dldate + "',ERDAT");
+                                        F.JBJLDW,B.NSOLM,B.ERNAM,C.WORKER_NAME,2,'" + DateTime.Now.ToString("yyyyMMdd") + "',ERDAT");
                        strBuilder.Append(@" from ZC10MMDG078 A
                                         join ZC10MMDG085A B on A.ZCKTZD=B.ZCKTZD and A.ZCITEM=B.ZCITEM 
                                         join WZ_BGY C on  C.WORKER_CODE=B.ERNAM
                                         join WZ_DW D ON D.DW_CODE=A.WERKS
                                         JOIN MARA E ON E.MATNR=A.MATNR
-                                        JOIN WZ_WLZ F ON F.PMCODE=E.MATKL where B.ERDAT>='" + dldate + "' ;");//根据日期插入出库单相关保管员信息
+                                        JOIN WZ_WLZ F ON F.PMCODE=E.MATKL  ;");//根据日期插入出库单相关保管员信息
                         strBuilder.Append(" commit; end; ");
                         if (m_Conn.ExecuteSql(strBuilder.ToString()))
                         {
                             Result = true;
-                            ClsErrorLogInfo.WriteSapLog("1", "RKJE", "ALL", p_para.Sap_AEDAT, "模型转换-删除CONVERT_BGYGZL表出库通知单保管员信息成功");
+                            ClsErrorLogInfo.WriteSapLog("1", "RKJE", "ALL", DateTime.Now.ToString("yyyy-MM-dd"), "模型转换-删除CONVERT_BGYGZL表出库通知单保管员信息成功");
                         }
                         else
                         {
                             Result = false;
-                            ClsErrorLogInfo.WriteSapLog("1", "RKJE", "ALL", p_para.Sap_AEDAT, "模型转换-删除CONVERT_BGYGZL表出库通知单保管员信息失败");
+                            ClsErrorLogInfo.WriteSapLog("1", "RKJE", "ALL", DateTime.Now.ToString("yyyy-MM-dd"), "模型转换-删除CONVERT_BGYGZL表出库通知单保管员信息失败");
                         }
                     }
                     else
                     {
                         Result = false;
-                        ClsErrorLogInfo.WriteSapLog("1", "RKJE", "ALL", p_para.Sap_AEDAT, "模型转换-删除CONVERT_BGYGZL表入库通知单保管员信息失败");
+                        ClsErrorLogInfo.WriteSapLog("1", "RKJE", "ALL", DateTime.Now.ToString("yyyy-MM-dd"), "模型转换-删除CONVERT_BGYGZL表入库通知单保管员信息失败");
                     }
                 }
                 else {
                     Result = false;
-                    ClsErrorLogInfo.WriteSapLog("1", "RKJE", "ALL", p_para.Sap_AEDAT, "模型转换-删除CONVERT_BGYGZL表失败" );
+                    ClsErrorLogInfo.WriteSapLog("1", "RKJE", "ALL", DateTime.Now.ToString("yyyy-MM-dd"), "模型转换-删除CONVERT_BGYGZL表失败" );
                 }
             }
             catch (Exception ex)

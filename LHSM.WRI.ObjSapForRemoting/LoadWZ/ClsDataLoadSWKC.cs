@@ -32,7 +32,7 @@ namespace LHSM.HB.ObjSapForRemoting
                                     INSERT INTO CONVERT_SWKC (WERKS,MATKL,MATNR,MAKTX,
                                      MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,ZSTATUS,YXQ,DLDATE,KCTYPE)
                                      SELECT A.WERKS,C.MATKL,A.MATNR,C.MAKTX,
-                                     F.JBJLDW,A.GESME,A.LGORT,A.LGPLA,case when SUBSTR(A.WDATU, 0, 8)='00000000' then A.BDATU ELSE A.WDATU END,D.DW_NAME,E.KCDD_NAME,'04','',to_char(sysdate,'yyyymmdd'),0
+                                     F.JBJLDW,A.GESME,A.LGORT,substr(A.LGPLA,0,4),case when SUBSTR(A.WDATU, 0, 8)='00000000' then A.BDATU ELSE A.WDATU END,D.DW_NAME,E.KCDD_NAME,'04','',to_char(sysdate,'yyyymmdd'),0
                                      FROM LQUA A JOIN(
                                     select WERKS,MATNR,substr(lgpla,0,2) DKCODE,LGORT,max(BDATU) BDATU,max(LQNUM) LQNUM
                                     from LQUA where regexp_like(lgpla,'^[0-9]+[0-9]$') 
