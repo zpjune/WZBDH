@@ -83,10 +83,14 @@ namespace WebServicetest
                     {
                         string msg = line.Substring(39).Trim();
                         string[] arr = msg.Split('_');
-                        txtDate = Convert.ToDateTime(arr[1].Substring(0, 4) + "-" + arr[1].Substring(4, 2) + "-" + arr[1].Substring(6, 2));
-                        if (fileNameDt.Select("TXT_TABLENAME='"+arr[0]+"'").Length>0&& txtDate >= dtLastDownLoadDate) {
-                            strs.Add(msg);
+                        if (arr.Length>2) {//过滤ftp 下无用的readline
+                            txtDate = Convert.ToDateTime(arr[1].Substring(0, 4) + "-" + arr[1].Substring(4, 2) + "-" + arr[1].Substring(6, 2));
+                            if (fileNameDt.Select("TXT_TABLENAME='" + arr[0] + "'").Length > 0 && txtDate >= dtLastDownLoadDate)
+                            {
+                                strs.Add(msg);
+                            }
                         }
+                       
                     }
                     line = reader.ReadLine();
                 }
