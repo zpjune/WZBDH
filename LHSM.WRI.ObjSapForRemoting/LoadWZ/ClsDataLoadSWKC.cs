@@ -28,6 +28,11 @@ namespace LHSM.HB.ObjSapForRemoting
             m_Conn = ClsUtility.GetConn();
             try
             {
+                string week= DateTime.Today.DayOfWeek.ToString();
+                if (week== "Thursday") {
+                    string sql = " begin insert into CONVERT_SWKC_RECORD SELECT * FROM CONVERT_SWKC ;COMMIT; END;  ";
+                    m_Conn.ExecuteSql(sql);
+                }
                 string sqlLQUA = @"begin delete from CONVERT_SWKC where KCTYPE=0;
                                     INSERT INTO CONVERT_SWKC (WERKS,MATKL,MATNR,MAKTX,
                                      MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,ZSTATUS,YXQ,DLDATE,KCTYPE)
