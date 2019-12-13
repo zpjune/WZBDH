@@ -79,7 +79,7 @@ namespace WebServicetest
                 string line = reader.ReadLine();
                 while (line != null)
                 {
-                    if (!line.Contains("<DIR>"))
+                    if (!line.Contains("<DIR>")&&!line.Contains("ZC10MMDG078_GZ")&& !line.Contains("ZC10MMDG072_GZ"))
                     {
                         string msg = line.Substring(39).Trim();
                         string[] arr = msg.Split('_');
