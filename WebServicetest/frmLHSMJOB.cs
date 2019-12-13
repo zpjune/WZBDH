@@ -708,18 +708,18 @@ namespace WebServicetest
 
         private DataTable GetDataSource(bool isWhere)
         {
-            string strSql = "SELECT TXT_TABLENAME,TXT_PK,decode(TXT_ISREADER,'1','生效','不生效') as TXT_ISREADER,DLDATE FROM HB_TXTTABLE";
+            string strSql = "SELECT TXT_TABLENAME,TXT_PK,decode(TXT_ISREADER,'1','生效','不生效') as TXT_ISREADER,DLDATE FROM HB_TXTTABLE  where TXT_ISREADER='1'  ";
             if (isWhere)
             {
-                strSql += " where 1=1";
+                //strSql += " where 1=1";
                 if (!string.IsNullOrEmpty(this.tbReadTableName.Text.Trim()))
                 {
                     strSql += " and TXT_TABLENAME='" + this.tbReadTableName.Text.Trim() + "'";
                 }
-                if (this.cbReadSX.SelectedIndex > 0)
-                {
-                    strSql += " and TXT_ISREADER='" + (this.cbReadSX.SelectedValue.ToString().Equals("生效") ? "1" : "0") + "'";
-                }
+                //if (this.cbReadSX.SelectedIndex > 0)
+                //{
+                //    strSql += " and TXT_ISREADER='" + (this.cbReadSX.SelectedValue.ToString().Equals("生效") ? "1" : "0") + "'";
+                //}
             }
             DataTable dt = ClsUtility.GetSelectTable(strSql);
             return dt;
