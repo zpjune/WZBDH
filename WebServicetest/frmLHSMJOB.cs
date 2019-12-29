@@ -350,6 +350,7 @@ namespace WebServicetest
 
                 //是否执行
                 timer.Enabled = true;
+                LHSM.Logs.Log.Logger.Error("startTime()=====start==========="+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             }
             catch (Exception)
             {
@@ -371,7 +372,7 @@ namespace WebServicetest
                 timer.Stop();
                 timer.Elapsed -= new ElapsedEventHandler(timer_Elapsed);
                 timer.Enabled = false;
-
+                LHSM.Logs.Log.Logger.Error("stopTime()=====end===========" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             }
             catch (Exception)
             {
