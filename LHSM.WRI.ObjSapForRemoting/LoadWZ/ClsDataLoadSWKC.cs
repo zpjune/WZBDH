@@ -48,7 +48,7 @@ namespace LHSM.HB.ObjSapForRemoting
                 //                    JOIN WZ_WLZ F ON F.PMCODE=C.MATKL ; COMMIT; end;"; //查询lqua表库存，lapla 为数字得，子查询是按物料编码取最新一条数据，主要取里面得BDATU,WDATU
                 //regexp_like(lgpla,'^[0-9]+[0-9]$')过滤lapla不是数字的
                 string sqlLQUA = @"
-                                     SELECT A.WERKS,C.MATKL,A.MATNR,C.MAKTX,
+                                     SELECT A.WERKS,C.MATKL,A.MATNR,trim(C.MAKTX)MAKTX,
                                      F.JBJLDW MEINS,nvl(A.GESME,0)GESME,A.LGORT,substr(A.LGPLA,0,4)LGPLA,case when SUBSTR(A.WDATU, 0, 8)='00000000' then A.BDATU ELSE A.WDATU END ERDAT,
                                         D.DW_NAME WERKS_NAME,E.KCDD_NAME,'04' ZSTATUS,''YXQ,to_char(sysdate,'yyyymmdd')DLDATE,0 KCTYPE
                                      FROM LQUA A JOIN(
@@ -76,10 +76,11 @@ namespace LHSM.HB.ObjSapForRemoting
                     string sqlinsert = "INSERT INTO CONVERT_SWKC (WERKS,MATKL,MATNR,MAKTX,MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,ZSTATUS,YXQ,DLDATE,KCTYPE)values ('";
                     foreach (DataRow row in dt.Rows)
                     {
+                        
                         DataRow[] rowsRK = dtruku.Select("MATNR='" + row["MATNR"] + "' and WERKS='" + row["WERKS"] + "' and  LGORT='" + row["LGORT"] + "' and LGPLA='" + row["LGPLA"] + "' ");
                         if (rowsRK != null && rowsRK.Length > 0)
                         {
-                            sb.AppendLine(sqlinsert);
+                            
                             double sumSL = 0;
                             int flag = 0;
                             foreach (DataRow rowRK in rowsRK)
@@ -87,61 +88,73 @@ namespace LHSM.HB.ObjSapForRemoting
                                 sumSL = sumSL+double.Parse(rowRK["MENGE"].ToString());
                                 if (sumSL >= double.Parse(row["GESME"].ToString()))
                                 {
-                                    sb.AppendLine(row["WERKS"].ToString()+"','");
-                                    sb.AppendLine(row["MATKL"].ToString() + "','");
-                                    sb.AppendLine(row["MATNR"].ToString() + "','");
-                                    sb.AppendLine(row["MAKTX"].ToString() + "','");
-                                    sb.AppendLine(row["MEINS"].ToString() + "','");
-                                    sb.AppendLine(row["GESME"].ToString() + "','");
-                                    sb.AppendLine(row["LGORT"].ToString() + "','");
-                                    sb.AppendLine(row["LGPLA"].ToString() + "','");
-                                    sb.AppendLine(rowRK["BUDAT_MKPF"].ToString() + "','");
-                                    sb.AppendLine(row["WERKS_NAME"].ToString() + "','");
-                                    sb.AppendLine(row["ZSTATUS"].ToString() + "','");
-                                    sb.AppendLine(row["YXQ"].ToString() + "','");
-                                    sb.AppendLine(row["DLDATE"].ToString() + "',");
-                                    sb.AppendLine(row["KCTYPE"].ToString() + ");");
+                                    sb.AppendLine("");
+                                    sb.Append(sqlinsert);
+                                    sb.Append(row["WERKS"].ToString()+"','");
+                                    sb.Append(row["MATKL"].ToString() + "','");
+                                    sb.Append(row["MATNR"].ToString() + "','");
+                                    sb.Append(row["MAKTX"].ToString().Replace("/*", "*").Replace("&", " ").Replace("'", "").Trim() + "','");
+                                    sb.Append(row["MEINS"].ToString() + "','");
+                                    sb.Append(row["GESME"].ToString() + "','");
+                                    sb.Append(row["LGORT"].ToString() + "','");
+                                    sb.Append(row["LGPLA"].ToString() + "','");
+                                    sb.Append(rowRK["BUDAT_MKPF"].ToString() + "','");
+                                    sb.Append(row["WERKS_NAME"].ToString() + "','"); 
+                                    sb.Append(row["KCDD_NAME"].ToString() + "','"); 
+                                    sb.Append(row["ZSTATUS"].ToString() + "','");
+                                    sb.Append(row["YXQ"].ToString() + "','");
+                                    sb.Append(row["DLDATE"].ToString() + "',");
+                                    sb.Append(row["KCTYPE"].ToString() + ");");
                                     flag = 1;
+                                    break;
                                 }
                             }
                             if (flag==0) {
-                                sb.AppendLine(row["WERKS"].ToString() + "','");
-                                sb.AppendLine(row["MATKL"].ToString() + "','");
-                                sb.AppendLine(row["MATNR"].ToString() + "','");
-                                sb.AppendLine(row["MAKTX"].ToString() + "','");
-                                sb.AppendLine(row["MEINS"].ToString() + "','");
-                                sb.AppendLine(row["GESME"].ToString() + "','");
-                                sb.AppendLine(row["LGORT"].ToString() + "','");
-                                sb.AppendLine(row["LGPLA"].ToString() + "','");
-                                sb.AppendLine(row["ERDAT"].ToString() + "','");
-                                sb.AppendLine(row["WERKS_NAME"].ToString() + "','");
-                                sb.AppendLine(row["ZSTATUS"].ToString() + "','");
-                                sb.AppendLine(row["YXQ"].ToString() + "','");
-                                sb.AppendLine(row["DLDATE"].ToString() + "',");
-                                sb.AppendLine(row["KCTYPE"].ToString() + ");");
+                                sb.AppendLine("");
+                                sb.Append(sqlinsert);
+                                sb.Append(row["WERKS"].ToString() + "','");
+                                sb.Append(row["MATKL"].ToString() + "','");
+                                sb.Append(row["MATNR"].ToString() + "','");
+                                sb.Append(row["MAKTX"].ToString().Replace("/*", "*").Replace("&", " ").Replace("'", "").Trim() + "','");
+                                sb.Append(row["MEINS"].ToString() + "','");
+                                sb.Append(row["GESME"].ToString() + "','");
+                                sb.Append(row["LGORT"].ToString() + "','");
+                                sb.Append(row["LGPLA"].ToString() + "','");
+                                sb.Append(row["ERDAT"].ToString() + "','");
+                                sb.Append(row["WERKS_NAME"].ToString() + "','");
+                                sb.Append(row["KCDD_NAME"].ToString() + "','");
+                                sb.Append(row["ZSTATUS"].ToString() + "','");
+                                sb.Append(row["YXQ"].ToString() + "','");
+                                sb.Append(row["DLDATE"].ToString() + "',");
+                                sb.Append(row["KCTYPE"].ToString() + ");");
                             }
                         }
                         else {
-                            sb.AppendLine(sqlinsert);
-                            sb.AppendLine(row["WERKS"].ToString() + "','");
-                            sb.AppendLine(row["MATKL"].ToString() + "','");
-                            sb.AppendLine(row["MATNR"].ToString() + "','");
-                            sb.AppendLine(row["MAKTX"].ToString() + "','");
-                            sb.AppendLine(row["MEINS"].ToString() + "','");
-                            sb.AppendLine(row["GESME"].ToString() + "','");
-                            sb.AppendLine(row["LGORT"].ToString() + "','");
-                            sb.AppendLine(row["LGPLA"].ToString() + "','");
-                            sb.AppendLine(row["ERDAT"].ToString() + "','");
-                            sb.AppendLine(row["WERKS_NAME"].ToString() + "','");
-                            sb.AppendLine(row["ZSTATUS"].ToString() + "','");
-                            sb.AppendLine(row["YXQ"].ToString() + "','");
-                            sb.AppendLine(row["DLDATE"].ToString() + "',");
-                            sb.AppendLine(row["KCTYPE"].ToString() + ");");
+                            sb.AppendLine("");
+                            sb.Append(sqlinsert);
+                            sb.Append(row["WERKS"].ToString() + "','");
+                            sb.Append(row["MATKL"].ToString() + "','");
+                            sb.Append(row["MATNR"].ToString() + "','");
+                            sb.Append(row["MAKTX"].ToString().Replace("/*","*").Replace("&", " ").Replace("'", "").Trim() + "','");
+                            sb.Append(row["MEINS"].ToString() + "','");
+                            sb.Append(row["GESME"].ToString() + "','");
+                            sb.Append(row["LGORT"].ToString() + "','");
+                            sb.Append(row["LGPLA"].ToString() + "','");
+                            sb.Append(row["ERDAT"].ToString() + "','");
+                            sb.Append(row["WERKS_NAME"].ToString() + "','");
+                            sb.Append(row["KCDD_NAME"].ToString() + "','");
+                            sb.Append(row["ZSTATUS"].ToString() + "','");
+                            sb.Append(row["YXQ"].ToString() + "','");
+                            sb.Append(row["DLDATE"].ToString() + "',");
+                            sb.Append(row["KCTYPE"].ToString() + ");");
                         }
                         
                     }
 
                     string insertSWKC = @"begin delete from CONVERT_SWKC where KCTYPE=0;";
+                    insertSWKC += "  COMMIT; end;";
+                    Result = m_Conn.ExecuteSql(insertSWKC);
+                    insertSWKC = "  begin  ";
                     insertSWKC += sb.ToString();
                     insertSWKC += "  COMMIT; end;";
                     Result = m_Conn.ExecuteSql(insertSWKC);
@@ -182,7 +195,7 @@ namespace LHSM.HB.ObjSapForRemoting
                 strBuilder.Length = 0;
                 strBuilder.Append(@" begin INSERT INTO CONVERT_SWKC (WERKS,ZDHTZD,ZITEM,MATKL,MATNR,MAKTX,
                                                     MEINS,GESME,LGORT,LGPLA,ERDAT,WERKS_NAME,LGORT_NAME,ZSTATUS,YXQ,DLDATE,KCTYPE)                                          
-                                                     select t.WERKS,t.ZDHTZD,t.ZITEM,d.MATKL,  t.MATNR,d.MAKTX,
+                                                     select t.WERKS,t.ZDHTZD,t.ZITEM,d.MATKL,  t.MATNR,trim(d.MAKTX)MAKTX,
                                                      e.JBJLDW,k.VMENGE01,t.LGORT,'' LGPLA ,t.ZCJRQ, b.DW_NAME,c.KCDD_NAME,'03','','" + dldate + "',0 ");
                 strBuilder.Append(@" from ZC10MMDG072 t
                                                        join ZC10MMDG076 k on t.ZDHTZD =k.ZDHTZD and t.ZITEM=k.ZITEM
