@@ -59,7 +59,7 @@ namespace LHSM.HB.ObjSapForRemoting
                                      JOIN MARA C ON A.MATNR=C.MATNR
                                      join WZ_DW D ON D.DW_CODE=A.Werks
                                     LEFT join WZ_KCDD E ON E.DWCODE=A.WERKS AND E.KCDD_CODE=A.LGORT
-                                    JOIN WZ_WLZ F ON F.PMCODE=C.MATKL "; //查询lqua表库存，lapla 为数字得，子查询是按物料编码取最新一条数据，主要取里面得BDATU,WDATU
+                                    JOIN WZ_WLZ F ON F.PMCODE=C.MATKL where regexp_like(A.LGPLA,'^[0-9]+[0-9]$') AND substr(A.LGTYP,0,1)<>'9' "; //查询lqua表库存，lapla 为数字得，子查询是按物料编码取最新一条数据，主要取里面得BDATU,WDATU
                 //regexp_like(lgpla,'^[0-9]+[0-9]$')过滤lapla不是数字的
 
                 DataTable dt = m_Conn.GetSqlResultToDt(sqlLQUA);
@@ -203,7 +203,9 @@ namespace LHSM.HB.ObjSapForRemoting
                                                      join WZ_KCDD c ON c.DWCODE=t.WERKS AND c.KCDD_CODE=t.LGORT
                                                     join    MARA d on d.matnr=t.matnr
                                                     join WZ_WLZ e on e.PMCODE=d.MATKL
-                                                     where ZSTATUS ='03'; commit; end; ");//插入质检状态的入库单作为另一部分库存
+                                                     where ZSTATUS ='03' and  k.ZJYRQ between TO_CHAR(trunc(sysdate)-14,'yyyymmdd') and TO_CHAR(sysdate,'yyyymmdd')
+                                                     and k.ZJYRQ<>'00000000'
+                                                ; commit; end; ");//插入质检状态的入库单作为另一部分库存
                 Result = m_Conn.ExecuteSql(strBuilder.ToString());
                 if (Result)
                 {
