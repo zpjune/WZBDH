@@ -1019,8 +1019,8 @@ namespace WebServicetest
             {
                 this.lbReadTxtInfo.Visible = false; //显示正在加载数据
                 this.btReadHand.Enabled = true;   //读取数据按钮不可用
-
-                MessageBox.Show("文档已转换或TXT文档不存在！");
+                LHSM.Logs.Log.Logger.Error("ReadFileTable():文档已转换或TXT文档不存在");
+                //MessageBox.Show("文档已转换或TXT文档不存在！");
                 return;
             }
             ReadTxt(tableList, SortDictionary_Asc(allTable));
