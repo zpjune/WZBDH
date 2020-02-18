@@ -414,6 +414,9 @@ namespace WebServicetest
                         }
                     }
                     ClsFtpInfo.LastLoadDate = _LastLoadDate.ToString("yyyyMMdd");
+                    ClsXmlHelper.UpdateXmlFtp();
+                    SetFtpClass();
+                    SetFtpInfo();
                     ClsLogInfo.WriteSapLog("3", "fptzidongxiazai", DateTime.Now.ToString("yyyyMMdd HH:mm:ss"), "自动下载ftp文件结束\t\n");
                     deleteFile(ClsFtpInfo.LocalFilePath);
                 }

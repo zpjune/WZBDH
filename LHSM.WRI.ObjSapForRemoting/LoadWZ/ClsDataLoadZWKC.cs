@@ -35,6 +35,7 @@ namespace LHSM.HB.ObjSapForRemoting
                                     JOIN MARA B ON A.MATNR=B.MATNR
                                     JOIN WZ_WLZ C ON C.PMCODE=B.MATKL
                                     JOIN WZ_DW D ON D.DW_CODE=A.BWKEY 
+                                    where A.SALK3>0
                                      ; commit;end ;";
                     Result = m_Conn.ExecuteSql(strSqlEkko);
             }
