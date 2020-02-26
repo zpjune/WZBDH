@@ -402,7 +402,7 @@ namespace WebServicetest
 
                 if (dtLastLoadDate.ToString("yyyyMMdd HH:mm:ss") == dtNow.ToString("yyyyMMdd HH:mm:ss")) {
                     ClsLogInfo.WriteSapLog("3", "fptzidongxiazai", DateTime.Now.ToString("yyyyMMdd HH:mm:ss"), "自动下载ftp文件开始\t\n");
-                    DateTime _LastLoadDate = Convert.ToDateTime(LastLoadDate.Substring(0, 4) + "-" + LastLoadDate.Substring(4, 2) + "-" + LastLoadDate.Substring(6, 2)).AddDays(double.Parse(Interval));
+                    DateTime _LastLoadDate = Convert.ToDateTime(LastLoadDate.Substring(0, 4) + "-" + LastLoadDate.Substring(4, 2) + "-" + LastLoadDate.Substring(6, 2));
                     DataTable dtFile = GetDataSource(false);
                     List<string> list = ClsFtpDownFile.GetFile(dtFile, _LastLoadDate);
                     if (list.Count > 0)
@@ -413,7 +413,7 @@ namespace WebServicetest
                             ftpdown.Download(filaname);
                         }
                     }
-                    ClsFtpInfo.LastLoadDate = _LastLoadDate.ToString("yyyyMMdd");
+                    ClsFtpInfo.LastLoadDate = dtLastLoadDate.ToString("yyyyMMdd");
                     ClsXmlHelper.UpdateXmlFtp();
                     SetFtpClass();
                     SetFtpInfo();
@@ -434,7 +434,7 @@ namespace WebServicetest
                             listtable.Add((m_dt.Rows[i]["TXT_TABLENAME"] ?? string.Empty).ToString().ToUpper());
                         }
 
-                        ReadFileTable(listtable, ClsReadTxtInfo.LocalFilePath);
+                        ReadFileTable1(listtable, ClsReadTxtInfo.LocalFilePath);
 
                             ClsReadTxtInfo.LastDateTime = ClsReadTxtInfo.NextDateTime.Substring(0, 8);
 
@@ -456,16 +456,17 @@ namespace WebServicetest
                 string strDate = ClsConvertInfo.NextDateTime;
                 DateTime p_date = DateTime.ParseExact(strDate, "yyyyMMdd", null); 
                 
-                if (ClsConvertInfo.ToDay=="1")
-                {
-                    p_date.AddDays(-1);
-                }
+                //if (ClsConvertInfo.ToDay=="1")
+                //{
+                //    p_date.AddDays(-1);
+                //}
                 string strAEDAT = p_date.ToString("yyyyMMdd");
-
+                
                 if (Convert.ToBoolean(ClsConvertInfo.ZWKC))
                 {
                     if (strDate + " " + ClsConvertInfo.ZWKCDate == dtNow.ToString("yyyyMMdd HH:mm:ss"))
                     {
+                        LHSM.Logs.Log.Logger.Error("convert进入zwkc");
                         string[] strPara = new string[] { strAEDAT, "" };
                         ClsSapOperate.SapLoadExecute("ZWKC", strPara);
                         all++;
@@ -477,6 +478,7 @@ namespace WebServicetest
                 {
                     if (strDate + " " + ClsConvertInfo.SWKCDate == dtNow.ToString("yyyyMMdd HH:mm:ss"))
                     {
+                        LHSM.Logs.Log.Logger.Error("SWKC");
                         string[] strPara = new string[] { strAEDAT, "" };
                         ClsSapOperate.SapLoadExecute("SWKC", strPara);
                         all++;
@@ -533,10 +535,11 @@ namespace WebServicetest
 
                 if (all==check)
                 {
+                    LHSM.Logs.Log.Logger.Error("all==check");
                     ClsConvertInfo.LastDateTime = ClsConvertInfo.NextDateTime;
                     DateTime dtNextDate = DateTime.ParseExact(ClsConvertInfo.LastDateTime, "yyyyMMdd", null).AddDays(int.Parse(ClsConvertInfo.Interval));
                     ClsConvertInfo.NextDateTime = dtNextDate.ToString("yyyyMMdd");
-
+                    LHSM.Logs.Log.Logger.Error(ClsConvertInfo.LastDateTime);
                     ClsXmlHelper.UpdateXmlConvert("ld");
                     all = 0; check = 0;
                 }
@@ -630,6 +633,7 @@ namespace WebServicetest
                         DateTime dtNextDate = DateTime.ParseExact(ClsConvertInfo.LastDateTime, "yyyyMMdd", null).AddDays(int.Parse(ClsConvertInfo.Interval));
                         ClsConvertInfo.NextDateTime = dtNextDate.ToString("yyyyMMdd");
                     }
+                    LHSM.Logs.Log.Logger.Error("convert==NextDateTime：==" + ClsConvertInfo.NextDateTime);
                 }
                 catch (Exception)
                 {
@@ -1022,14 +1026,50 @@ namespace WebServicetest
             {
                 this.lbReadTxtInfo.Visible = false; //显示正在加载数据
                 this.btReadHand.Enabled = true;   //读取数据按钮不可用
-                LHSM.Logs.Log.Logger.Error("ReadFileTable():文档已转换或TXT文档不存在");
-                //MessageBox.Show("文档已转换或TXT文档不存在！");
+                MessageBox.Show("文档已转换或TXT文档不存在！");
                 return;
             }
             ReadTxt(tableList, SortDictionary_Asc(allTable));
 
         }
+        private void ReadFileTable1(List<string> tableList, string path)
+        {
+            //路径下所有的txt文件名称
+            Dictionary<string, string> allTable = new Dictionary<string, string>();
+            //List<string> allTableDistinct = new List<string>();
 
+            DirectoryInfo folder = new DirectoryInfo(path);
+
+            foreach (FileInfo file in folder.GetFiles("*.txt"))
+            {
+                string tablename = ClsCom.GetTableForArr(file.Name);
+                string filenamedate = ClsCom.GetDateForArr(file.Name);
+                DataRow[] dr = m_dt.Select("TXT_TABLENAME='" + tablename.ToUpper() + "'");
+                if (dr != null && dr.Length > 0)
+                {
+                    if ((string.Compare((dr[0]["DLDATE"] ?? "00000000").ToString(), filenamedate) < 0) && tableList.Contains(tablename))
+                    {
+                        allTable.Add(file.Name, file.FullName);
+                        //if (!allTableDistinct.Contains(tablename))
+                        //{
+                        //    allTableDistinct.Add(tablename);
+                        //}
+
+                    }
+                }
+            }
+
+            if (allTable.Count <= 0)
+            {
+                this.lbReadTxtInfo.Visible = false; //显示正在加载数据
+                this.btReadHand.Enabled = true;   //读取数据按钮不可用
+                LHSM.Logs.Log.Logger.Error("ReadFileTable():文档已转换或TXT文档不存在");
+            }
+            else {
+                ReadTxt(tableList, SortDictionary_Asc(allTable));
+            }
+
+        }
         private void ReadTxt(List<string> tableList, Dictionary<string, string> allTable)
         {
             ThreadTotalCount = allTable.Count; //txt文件的个数           

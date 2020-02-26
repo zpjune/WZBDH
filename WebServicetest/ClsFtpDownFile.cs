@@ -77,18 +77,18 @@ namespace WebServicetest
                 StreamReader reader = new StreamReader(response.GetResponseStream());//中文文件名
                 DateTime txtDate ;
                 string line = reader.ReadLine();
-                LHSM.Logs.Log.Logger.Error("ftp读取数据流：==" +line.ToString());
+               // LHSM.Logs.Log.Logger.Error("ftp读取数据流：==" +line.ToString());
                 while (line != null)
                 {
-                    LHSM.Logs.Log.Logger.Error("ftp读取数据流：==" + line.ToString());
+                   // LHSM.Logs.Log.Logger.Error("ftp读取数据流：==" + line.ToString());
                     if (!line.Contains("<DIR>")&&!line.Contains("ZC10MMDG078_GZ")&& !line.Contains("ZC10MMDG072_GZ"))
                     {
-                        LHSM.Logs.Log.Logger.Error("进入判断不是文件夹");
+                        //LHSM.Logs.Log.Logger.Error("进入判断不是文件夹");
                         string msg = line.Substring(62).Trim();//修改截取长度 华北油田是39 大港油田是62
-                        LHSM.Logs.Log.Logger.Error("截取39：=="+msg);
+                       // LHSM.Logs.Log.Logger.Error("截取39：=="+msg);
                         string[] arr = msg.Split('_');
                         if (arr.Length>2) {//过滤ftp 下无用的readline
-                            LHSM.Logs.Log.Logger.Error("进入判断数组长度>2=="+arr.Length);
+                           // LHSM.Logs.Log.Logger.Error("进入判断数组长度>2=="+arr.Length);
 
                             if (arr.Length == 4)
                             {
@@ -97,10 +97,10 @@ namespace WebServicetest
                             else {
                                 txtDate = Convert.ToDateTime(arr[1].Substring(0, 4) + "-" + arr[1].Substring(4, 2) + "-" + arr[1].Substring(6, 2));
                             }
-                            LHSM.Logs.Log.Logger.Error("截取日期>2=="+ txtDate.ToString());
+                            //LHSM.Logs.Log.Logger.Error("截取日期>2=="+ txtDate.ToString());
                             if (fileNameDt.Select("TXT_TABLENAME='" + arr[0] + "'").Length > 0 && txtDate >= dtLastDownLoadDate)
                             {
-                                LHSM.Logs.Log.Logger.Error("进入筛选===end");
+                                LHSM.Logs.Log.Logger.Error("进入筛选==="+ arr[0].ToString());
                                 strs.Add(msg);
                             }
                         }
@@ -114,7 +114,7 @@ namespace WebServicetest
             }
             catch (Exception ex)
             {
-                LHSM.Logs.Log.Logger.Error("出错======"+ex.Message.ToString());
+                LHSM.Logs.Log.Logger.Error("ftp读取流出错======"+ex.Message.ToString());
                 ClsErrorLogInfo.WriteSapLog("2", "", "Ftp", System.DateTime.Now.ToString(), "Ftp远程获取文件列表出错:" + ex);
             }
             return strs;
