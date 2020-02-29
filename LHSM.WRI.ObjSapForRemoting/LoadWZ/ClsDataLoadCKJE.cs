@@ -34,12 +34,14 @@ namespace LHSM.HB.ObjSapForRemoting
             {
                 try
                 {
-                    string sql = " begin  INSERT INTO CONVERT_CKJE(WERKS,WERKS_NAME,LGORT,LGORT_NAME,ZCKTZD,ZCITEM,MBLNR,ZEILE,JE,BUDAT_MKPF,DLDATE)";
-                    sql += "  SELECT A.WERKS, C.DW_NAME ,A.LGORT, D.KCDD_NAME,A.ZCKTZD,A.ZCITEM,A.MBLNR, A.ZEILE,B.DMBTR,B.BUDAT_MKPF,'" + DateTime.Now.ToString("yyyyMMdd") + "'";
+                    string sql = " begin  INSERT INTO CONVERT_CKJE(WERKS,WERKS_NAME,LGORT,LGORT_NAME,ZCKTZD,ZCITEM,MBLNR,ZEILE,JE,BUDAT_MKPF,MENGE,DKCODE,MEINS,DLDATE)";
+                    sql += "  SELECT A.WERKS, C.DW_NAME ,A.LGORT, D.KCDD_NAME,A.ZCKTZD,A.ZCITEM,A.MBLNR, A.ZEILE,B.DMBTR,B.BUDAT_MKPF,B.MENGE,D.CKH,F.JBJLDW,'" + DateTime.Now.ToString("yyyyMMdd") + "'";
                     sql += "  FROM ZC10MMDG078 A";
                     sql += "  JOIN MSEG B ON A.MBLNR=B.MBLNR AND A.ZEILE=B.ZEILE";
                     sql += "  JOIN WZ_DW C ON A.WERKS=C.DW_CODE";
-                    sql += "  JOIN WZ_KCDD D ON A.WERKS=D.DWCODE AND A.LGORT=D.KCDD_CODE; commit;end;";
+                    sql += "  JOIN WZ_KCDD D ON A.WERKS=D.DWCODE AND A.LGORT=D.KCDD_CODE" +
+                        " JOIN MARA E ON A.MATNR=E.MATNR JOIN WZ_WLZ F ON F.PMCODE = E.MATKL " +
+                        " ; commit;end;";
                     Result = m_Conn.ExecuteSql(sql);
                     if (Result)
                     {

@@ -33,12 +33,14 @@ namespace LHSM.HB.ObjSapForRemoting
                 try
                 {
                     ///根据入库单和凭证查询入库金额
-                    string sql = "begin INSERT INTO CONVERT_RKJE(WERKS,WERKS_NAME,LGORT,LGORT_NAME,ZDHTZD,ZITEM,MBLNR,ZEILE,JE,BUDAT_MKPF,DLDATE)";
-                    sql += "  SELECT A.WERKS, C.DW_NAME ,A.LGORT, D.KCDD_NAME,A.ZDHTZD,A.ZITEM,A.MBLNR, A.ZEILE,B.DMBTR,B.BUDAT_MKPF,'" + DateTime.Now.ToString("yyyyMMdd") + "'";
+                    string sql = "begin INSERT INTO CONVERT_RKJE(WERKS,WERKS_NAME,LGORT,LGORT_NAME,ZDHTZD,ZITEM,MBLNR,ZEILE,JE,BUDAT_MKPF,MENGE,DKCODE,MEINS,DLDATE)";
+                    sql += "  SELECT A.WERKS, C.DW_NAME ,A.LGORT, D.KCDD_NAME,A.ZDHTZD,A.ZITEM,A.MBLNR, A.ZEILE,B.DMBTR,B.BUDAT_MKPF,B.MENGE,D.CKH,F.JBJLDW,'" + DateTime.Now.ToString("yyyyMMdd") + "'";
                     sql += "  FROM ZC10MMDG072 A";
                     sql += "  JOIN MSEG B ON A.MBLNR = B.MBLNR AND A.ZEILE = B.ZEILE";//凭证号和项目号
                     sql += "  JOIN WZ_DW C ON A.WERKS = C.DW_CODE";
-                    sql += "  JOIN WZ_KCDD D ON A.WERKS = D.DWCODE AND A.LGORT = D.KCDD_CODE ; commit; end ; ";
+                    sql += "  JOIN WZ_KCDD D ON A.WERKS = D.DWCODE AND A.LGORT = D.KCDD_CODE " +
+                        " JOIN MARA E ON A.MATNR=E.MATNR  JOIN WZ_WLZ F ON F.PMCODE = E.MATKL " +
+                        " ; commit; end ; ";
                     Result = m_Conn.ExecuteSql(sql);
                     if (Result)
                     {
