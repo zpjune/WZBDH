@@ -398,8 +398,9 @@ namespace WebServicetest
                 string LastLoadDate = ClsFtpInfo.LastLoadDate;
                 string Interval = ClsFtpInfo.Interval;
                 string LastLoadTime = ClsFtpInfo.LastLoadTime;
-                DateTime dtLastLoadDate = Convert.ToDateTime(LastLoadDate.Substring(0, 4) + "-" + LastLoadDate.Substring(4, 2) + "-" + LastLoadDate.Substring(6, 2)+" "+ LastLoadTime).AddDays(double.Parse(Interval));
-
+                // DateTime dtLastLoadDate = Convert.ToDateTime(LastLoadDate.Substring(0, 4) + "-" + LastLoadDate.Substring(4, 2) + "-" + LastLoadDate.Substring(6, 2)+" "+ LastLoadTime).AddDays(double.Parse(Interval));
+                DateTime dtLastLoadDate = Convert.ToDateTime(dtNow.ToString("yyyy-MM-dd") + " " + LastLoadTime);
+                // LHSM.Logs.Log.Logger.Error("ftptime：==" + dtLastLoadDate.ToString("yyyyMMdd HH:mm:ss"));
                 if (dtLastLoadDate.ToString("yyyyMMdd HH:mm:ss") == dtNow.ToString("yyyyMMdd HH:mm:ss")) {
                     ClsLogInfo.WriteSapLog("3", "fptzidongxiazai", DateTime.Now.ToString("yyyyMMdd HH:mm:ss"), "自动下载ftp文件开始\t\n");
                     DateTime _LastLoadDate = Convert.ToDateTime(LastLoadDate.Substring(0, 4) + "-" + LastLoadDate.Substring(4, 2) + "-" + LastLoadDate.Substring(6, 2));
@@ -413,6 +414,7 @@ namespace WebServicetest
                             ftpdown.Download(filaname);
                         }
                     }
+                    LHSM.Logs.Log.Logger.Error("进去下载ftpftptime：==" + dtLastLoadDate.ToString("yyyyMMdd HH:mm:ss"));
                     ClsFtpInfo.LastLoadDate = dtLastLoadDate.ToString("yyyyMMdd");
                     ClsXmlHelper.UpdateXmlFtp();
                     SetFtpClass();
@@ -633,7 +635,7 @@ namespace WebServicetest
                         DateTime dtNextDate = DateTime.ParseExact(ClsConvertInfo.LastDateTime, "yyyyMMdd", null).AddDays(int.Parse(ClsConvertInfo.Interval));
                         ClsConvertInfo.NextDateTime = dtNextDate.ToString("yyyyMMdd");
                     }
-                    LHSM.Logs.Log.Logger.Error("convert==NextDateTime：==" + ClsConvertInfo.NextDateTime);
+                    
                 }
                 catch (Exception)
                 {
