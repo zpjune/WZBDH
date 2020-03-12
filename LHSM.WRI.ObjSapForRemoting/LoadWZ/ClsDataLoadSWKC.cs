@@ -49,23 +49,19 @@ namespace LHSM.HB.ObjSapForRemoting
                 //regexp_like(lgpla,'^[0-9]+[0-9]$')过滤lapla不是数字的
                 string sqlLQUA = @"
                                      SELECT A.WERKS,C.MATKL,A.MATNR,trim(C.MAKTX)MAKTX,
-                                     F.JBJLDW MEINS,nvl(A.GESME,0)GESME,A.LGORT,substr(A.LGPLA,0,4)LGPLA,case when SUBSTR(A.WDATU, 0, 8)='00000000' then A.BDATU ELSE A.WDATU END ERDAT,
+                                     F.JBJLDW MEINS,nvl(A.GESME,0)GESME,A.LGORT,substr(A.LGPLA,0,4)LGPLA2,A.LGPLA ,case when SUBSTR(A.WDATU, 0, 8)='00000000' then A.BDATU ELSE A.WDATU END ERDAT,
                                         D.DW_NAME WERKS_NAME,E.KCDD_NAME,'04' ZSTATUS,''YXQ,to_char(sysdate,'yyyymmdd')DLDATE,0 KCTYPE
-                                     FROM LQUA A JOIN(
-                                    select WERKS,MATNR,substr(lgpla,0,4) DKCODE,LGORT,max(LQNUM) LQNUM,max(BDATU)BDATU 
-                                    from LQUA where regexp_like(lgpla,'^[0-9]+[0-9]$') 
-                                     group by werks,matnr,LGORT,substr(lgpla,0,4)) B ON A.WERKS=B.WERKS AND A.MATNR=B.MATNR AND 
-                                        substr(A.lgpla,0,4)=B.DKCODE AND A.LGORT=B.LGORT AND A.BDATU=B.BDATU AND A.LQNUM=B.LQNUM
+                                     FROM LQUA A 
                                      JOIN MARA C ON A.MATNR=C.MATNR
                                      join WZ_DW D ON D.DW_CODE=A.Werks
-                                    LEFT join WZ_KCDD E ON E.DWCODE=A.WERKS AND E.KCDD_CODE=A.LGORT
-                                    JOIN WZ_WLZ F ON F.PMCODE=C.MATKL where regexp_like(A.LGPLA,'^[0-9]+[0-9]$') AND substr(A.LGTYP,0,1)<>'9' "; //查询lqua表库存，lapla 为数字得，子查询是按物料编码取最新一条数据，主要取里面得BDATU,WDATU
+                                     LEFT join WZ_KCDD E ON E.DWCODE=A.WERKS AND E.KCDD_CODE=A.LGORT
+                                    JOIN WZ_WLZ F ON F.PMCODE=C.MATKL where regexp_like(A.LGPLA,'^[0-9]+[0-9]$') and substr(LGPLA,0,1)='0' AND substr(A.LGTYP,0,1)<>'9' "; //查询lqua表库存，lapla 为数字得，子查询是按物料编码取最新一条数据，主要取里面得BDATU,WDATU
                 //regexp_like(lgpla,'^[0-9]+[0-9]$')过滤lapla不是数字的
 
                 DataTable dt = m_Conn.GetSqlResultToDt(sqlLQUA);
                 if (dt!=null&&dt.Rows.Count>0)
                 {
-                    string sqlruku = @"select nvl(C.MENGE,0)MENGE,C.BUDAT_MKPF,A.MATNR,A.ZDHTZD, A.ZITEM,substr(B.LGPLA,0,4)LGPLA,A.WERKS,A.LGORT
+                    string sqlruku = @"select nvl(C.MENGE,0)MENGE,C.BUDAT_MKPF,A.MATNR,A.ZDHTZD, A.ZITEM,B.LGPLA,A.WERKS,A.LGORT
                                         from ZC10MMDG072 A
                                         JOIN ZC10MMDG085B B ON A.ZDHTZD=B.ZDHTZD AND A.ZITEM=B.ZITEM  and regexp_like(B.lgpla,'^[0-9]+[0-9]$') 
                                         JOIN MSEG C ON C.MBLNR=A.MBLNR AND C.ZEILE=A.ZEILE and C.BWART IN('105','101') 
@@ -97,7 +93,7 @@ namespace LHSM.HB.ObjSapForRemoting
                                     sb.Append(row["MEINS"].ToString() + "','");
                                     sb.Append(row["GESME"].ToString() + "','");
                                     sb.Append(row["LGORT"].ToString() + "','");
-                                    sb.Append(row["LGPLA"].ToString() + "','");
+                                    sb.Append(row["LGPLA2"].ToString() + "','");
                                     sb.Append(rowRK["BUDAT_MKPF"].ToString() + "','");
                                     sb.Append(row["WERKS_NAME"].ToString() + "','"); 
                                     sb.Append(row["KCDD_NAME"].ToString() + "','"); 
@@ -119,7 +115,7 @@ namespace LHSM.HB.ObjSapForRemoting
                                 sb.Append(row["MEINS"].ToString() + "','");
                                 sb.Append(row["GESME"].ToString() + "','");
                                 sb.Append(row["LGORT"].ToString() + "','");
-                                sb.Append(row["LGPLA"].ToString() + "','");
+                                sb.Append(row["LGPLA2"].ToString() + "','");
                                 sb.Append(row["ERDAT"].ToString() + "','");
                                 sb.Append(row["WERKS_NAME"].ToString() + "','");
                                 sb.Append(row["KCDD_NAME"].ToString() + "','");
@@ -139,7 +135,7 @@ namespace LHSM.HB.ObjSapForRemoting
                             sb.Append(row["MEINS"].ToString() + "','");
                             sb.Append(row["GESME"].ToString() + "','");
                             sb.Append(row["LGORT"].ToString() + "','");
-                            sb.Append(row["LGPLA"].ToString() + "','");
+                            sb.Append(row["LGPLA2"].ToString() + "','");
                             sb.Append(row["ERDAT"].ToString() + "','");
                             sb.Append(row["WERKS_NAME"].ToString() + "','");
                             sb.Append(row["KCDD_NAME"].ToString() + "','");

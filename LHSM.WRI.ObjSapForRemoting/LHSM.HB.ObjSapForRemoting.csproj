@@ -54,6 +54,7 @@
     <Compile Include="LoadWZ\ClsDataLoadCKJE.cs" />
     <Compile Include="LoadWZ\ClsDataLoadRK.cs" />
     <Compile Include="LoadWZ\ClsDataLoadRKJE.cs" />
+    <Compile Include="LoadWZ\ClsDataLoadSWKC_bak.cs" />
     <Compile Include="LoadWZ\ClsDataLoadSWKCBAK.cs" />
     <Compile Include="LoadWZ\ClsDataLoadSWKC.cs" />
     <Compile Include="LoadWZ\ClsDataLoadZWKC.cs" />
