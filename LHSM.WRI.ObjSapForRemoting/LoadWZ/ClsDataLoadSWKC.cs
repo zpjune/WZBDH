@@ -55,7 +55,7 @@ namespace LHSM.HB.ObjSapForRemoting
                                      JOIN MARA C ON A.MATNR=C.MATNR
                                      join WZ_DW D ON D.DW_CODE=A.Werks
                                      LEFT join WZ_KCDD E ON E.DWCODE=A.WERKS AND E.KCDD_CODE=A.LGORT
-                                    JOIN WZ_WLZ F ON F.PMCODE=C.MATKL where regexp_like(A.LGPLA,'^[0-9]+[0-9]$') and substr(LGPLA,0,1)='0' AND substr(A.LGTYP,0,1)<>'9' "; //查询lqua表库存，lapla 为数字得，子查询是按物料编码取最新一条数据，主要取里面得BDATU,WDATU
+                                    JOIN WZ_WLZ F ON F.PMCODE=C.MATKL where regexp_like(lgpla,'^0\d{9}$') AND substr(A.LGTYP,0,1)<>'9' "; //查询lqua表库存，lapla 为数字得，子查询是按物料编码取最新一条数据，主要取里面得BDATU,WDATU
                 //regexp_like(lgpla,'^[0-9]+[0-9]$')过滤lapla不是数字的
 
                 DataTable dt = m_Conn.GetSqlResultToDt(sqlLQUA);
@@ -63,9 +63,9 @@ namespace LHSM.HB.ObjSapForRemoting
                 {
                     string sqlruku = @"select nvl(C.MENGE,0)MENGE,C.BUDAT_MKPF,A.MATNR,A.ZDHTZD, A.ZITEM,B.LGPLA,A.WERKS,A.LGORT
                                         from ZC10MMDG072 A
-                                        JOIN ZC10MMDG085B B ON A.ZDHTZD=B.ZDHTZD AND A.ZITEM=B.ZITEM  and regexp_like(B.lgpla,'^[0-9]+[0-9]$') 
+                                        JOIN ZC10MMDG085B B ON A.ZDHTZD=B.ZDHTZD AND A.ZITEM=B.ZITEM  and regexp_like(B.lgpla,'^0\d{9}$') 
                                         JOIN MSEG C ON C.MBLNR=A.MBLNR AND C.ZEILE=A.ZEILE and C.BWART IN('105','101') 
-                                        WHERE exists (SELECT 1 FROM LQUA d WHERE d.MATNR=A.MATNR and regexp_like(d.lgpla,'^[0-9]+[0-9]$')  ) 
+                                        WHERE exists (SELECT 1 FROM LQUA d WHERE d.MATNR=A.MATNR and regexp_like(d.lgpla,'^0\d{9}$')  ) 
                                         order by C.BUDAT_MKPF desc,a.matnr,a.zdhtzd,a.zitem ";
                     DataTable dtruku = m_Conn.GetSqlResultToDt(sqlruku);
                     StringBuilder sb = new StringBuilder();
