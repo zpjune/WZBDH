@@ -40,12 +40,14 @@
             this.btRefresh = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.tbConvCKJEDateInfo = new System.Windows.Forms.TextBox();
+            this.tbConvBGYDateInfo = new System.Windows.Forms.TextBox();
             this.tbConvRKJEDateInfo = new System.Windows.Forms.TextBox();
             this.tbConvCKDateInfo = new System.Windows.Forms.TextBox();
             this.tbConvRKDateInfo = new System.Windows.Forms.TextBox();
             this.tbConvSWKCDateInfo = new System.Windows.Forms.TextBox();
             this.rbToDayInfo = new System.Windows.Forms.RadioButton();
             this.cbCKJEInfo = new System.Windows.Forms.CheckBox();
+            this.cbBGYInfo = new System.Windows.Forms.CheckBox();
             this.rbLastDayInfo = new System.Windows.Forms.RadioButton();
             this.cbRKJEInfo = new System.Windows.Forms.CheckBox();
             this.cbCKInfo = new System.Windows.Forms.CheckBox();
@@ -82,6 +84,7 @@
             this.lbConvInfo = new System.Windows.Forms.Label();
             this.btConvHand = new System.Windows.Forms.Button();
             this.cbConvCKJESD = new System.Windows.Forms.CheckBox();
+            this.cbConvBGYSD = new System.Windows.Forms.CheckBox();
             this.cbConvRKJESD = new System.Windows.Forms.CheckBox();
             this.cbConvCKSD = new System.Windows.Forms.CheckBox();
             this.cbConvRKSD = new System.Windows.Forms.CheckBox();
@@ -139,12 +142,16 @@
             this.ConventLastTime = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
             this.btConvSave = new System.Windows.Forms.Button();
+            this.cbBGYFX = new System.Windows.Forms.CheckBox();
             this.cbCKJEFX = new System.Windows.Forms.CheckBox();
             this.cbRKJEFX = new System.Windows.Forms.CheckBox();
             this.cbCKFX = new System.Windows.Forms.CheckBox();
+            this.label60 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
+            this.tbConvBGYDate = new System.Windows.Forms.TextBox();
             this.label56 = new System.Windows.Forms.Label();
             this.tbConvCKJEDate = new System.Windows.Forms.TextBox();
+            this.label59 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label57 = new System.Windows.Forms.Label();
             this.tbConvRKJEDate = new System.Windows.Forms.TextBox();
@@ -196,13 +203,18 @@
             this.tbFtpDownDateSD = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
-            this.tbConvBGYDate = new System.Windows.Forms.TextBox();
-            this.label60 = new System.Windows.Forms.Label();
-            this.cbBGYFX = new System.Windows.Forms.CheckBox();
-            this.cbConvBGYSD = new System.Windows.Forms.CheckBox();
-            this.cbBGYInfo = new System.Windows.Forms.CheckBox();
-            this.tbConvBGYDateInfo = new System.Windows.Forms.TextBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label61 = new System.Windows.Forms.Label();
+            this.tbChaiFilePath = new System.Windows.Forms.TextBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.lb_fileSize = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label64 = new System.Windows.Forms.Label();
+            this.tb_dic = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.lb_filesizeKB = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabHome.SuspendLayout();
@@ -221,6 +233,7 @@
             this.tabFtpInfo.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon1
@@ -261,6 +274,7 @@
             this.tabControl1.Controls.Add(this.tabReadeTxt);
             this.tabControl1.Controls.Add(this.tabDataLoad);
             this.tabControl1.Controls.Add(this.tabFtpInfo);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -344,6 +358,15 @@
             this.tbConvCKJEDateInfo.Size = new System.Drawing.Size(123, 21);
             this.tbConvCKJEDateInfo.TabIndex = 78;
             // 
+            // tbConvBGYDateInfo
+            // 
+            this.tbConvBGYDateInfo.Enabled = false;
+            this.tbConvBGYDateInfo.Location = new System.Drawing.Point(206, 186);
+            this.tbConvBGYDateInfo.Name = "tbConvBGYDateInfo";
+            this.tbConvBGYDateInfo.ReadOnly = true;
+            this.tbConvBGYDateInfo.Size = new System.Drawing.Size(123, 21);
+            this.tbConvBGYDateInfo.TabIndex = 76;
+            // 
             // tbConvRKJEDateInfo
             // 
             this.tbConvRKJEDateInfo.Enabled = false;
@@ -401,6 +424,17 @@
             this.cbCKJEInfo.TabIndex = 70;
             this.cbCKJEInfo.Text = "出库金额分析";
             this.cbCKJEInfo.UseVisualStyleBackColor = true;
+            // 
+            // cbBGYInfo
+            // 
+            this.cbBGYInfo.AutoSize = true;
+            this.cbBGYInfo.Enabled = false;
+            this.cbBGYInfo.Location = new System.Drawing.Point(83, 188);
+            this.cbBGYInfo.Name = "cbBGYInfo";
+            this.cbBGYInfo.Size = new System.Drawing.Size(120, 16);
+            this.cbBGYInfo.TabIndex = 69;
+            this.cbBGYInfo.Text = "保管员工作量分析";
+            this.cbBGYInfo.UseVisualStyleBackColor = true;
             // 
             // rbLastDayInfo
             // 
@@ -779,6 +813,16 @@
             this.cbConvCKJESD.TabIndex = 60;
             this.cbConvCKJESD.Text = "出库金额分析";
             this.cbConvCKJESD.UseVisualStyleBackColor = true;
+            // 
+            // cbConvBGYSD
+            // 
+            this.cbConvBGYSD.AutoSize = true;
+            this.cbConvBGYSD.Location = new System.Drawing.Point(25, 138);
+            this.cbConvBGYSD.Name = "cbConvBGYSD";
+            this.cbConvBGYSD.Size = new System.Drawing.Size(120, 16);
+            this.cbConvBGYSD.TabIndex = 57;
+            this.cbConvBGYSD.Text = "保管员工作量分析";
+            this.cbConvBGYSD.UseVisualStyleBackColor = true;
             // 
             // cbConvRKJESD
             // 
@@ -1377,6 +1421,16 @@
             this.btConvSave.UseVisualStyleBackColor = true;
             this.btConvSave.Click += new System.EventHandler(this.btConvSave_Click);
             // 
+            // cbBGYFX
+            // 
+            this.cbBGYFX.AutoSize = true;
+            this.cbBGYFX.Location = new System.Drawing.Point(143, 382);
+            this.cbBGYFX.Name = "cbBGYFX";
+            this.cbBGYFX.Size = new System.Drawing.Size(120, 16);
+            this.cbBGYFX.TabIndex = 43;
+            this.cbBGYFX.Text = "保管员工作量分析";
+            this.cbBGYFX.UseVisualStyleBackColor = true;
+            // 
             // cbCKJEFX
             // 
             this.cbCKJEFX.AutoSize = true;
@@ -1407,6 +1461,16 @@
             this.cbCKFX.Text = "出库情况分析";
             this.cbCKFX.UseVisualStyleBackColor = true;
             // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.ForeColor = System.Drawing.Color.Red;
+            this.label60.Location = new System.Drawing.Point(470, 408);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(179, 12);
+            this.label60.TabIndex = 42;
+            this.label60.Text = "时间格式HH24:mm:ss 如08:00:00";
+            // 
             // label58
             // 
             this.label58.AutoSize = true;
@@ -1416,6 +1480,13 @@
             this.label58.Size = new System.Drawing.Size(179, 12);
             this.label58.TabIndex = 42;
             this.label58.Text = "时间格式HH24:mm:ss 如08:00:00";
+            // 
+            // tbConvBGYDate
+            // 
+            this.tbConvBGYDate.Location = new System.Drawing.Point(234, 404);
+            this.tbConvBGYDate.Name = "tbConvBGYDate";
+            this.tbConvBGYDate.Size = new System.Drawing.Size(221, 21);
+            this.tbConvBGYDate.TabIndex = 41;
             // 
             // label56
             // 
@@ -1433,6 +1504,15 @@
             this.tbConvCKJEDate.Name = "tbConvCKJEDate";
             this.tbConvCKJEDate.Size = new System.Drawing.Size(221, 21);
             this.tbConvCKJEDate.TabIndex = 41;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(141, 409);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(77, 12);
+            this.label59.TabIndex = 40;
+            this.label59.Text = "自动下载时间";
             // 
             // label40
             // 
@@ -1918,71 +1998,121 @@
             this.label10.TabIndex = 30;
             this.label10.Text = "时间格式YYYYmmdd 如20170101";
             // 
-            // label59
+            // tabPage1
             // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(141, 409);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(77, 12);
-            this.label59.TabIndex = 40;
-            this.label59.Text = "自动下载时间";
+            this.tabPage1.Controls.Add(this.progressBar1);
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.lb_filesizeKB);
+            this.tabPage1.Controls.Add(this.lb_fileSize);
+            this.tabPage1.Controls.Add(this.label65);
+            this.tabPage1.Controls.Add(this.label64);
+            this.tabPage1.Controls.Add(this.label62);
+            this.tabPage1.Controls.Add(this.tb_dic);
+            this.tabPage1.Controls.Add(this.tbChaiFilePath);
+            this.tabPage1.Controls.Add(this.label61);
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(791, 492);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "拆分文件";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tbConvBGYDate
+            // button1
             // 
-            this.tbConvBGYDate.Location = new System.Drawing.Point(234, 404);
-            this.tbConvBGYDate.Name = "tbConvBGYDate";
-            this.tbConvBGYDate.Size = new System.Drawing.Size(221, 21);
-            this.tbConvBGYDate.TabIndex = 41;
+            this.button1.Location = new System.Drawing.Point(602, 49);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "浏览";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label60
+            // label61
             // 
-            this.label60.AutoSize = true;
-            this.label60.ForeColor = System.Drawing.Color.Red;
-            this.label60.Location = new System.Drawing.Point(470, 408);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(179, 12);
-            this.label60.TabIndex = 42;
-            this.label60.Text = "时间格式HH24:mm:ss 如08:00:00";
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(51, 52);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(65, 12);
+            this.label61.TabIndex = 1;
+            this.label61.Text = "选择文件：";
             // 
-            // cbBGYFX
+            // tbChaiFilePath
             // 
-            this.cbBGYFX.AutoSize = true;
-            this.cbBGYFX.Location = new System.Drawing.Point(143, 382);
-            this.cbBGYFX.Name = "cbBGYFX";
-            this.cbBGYFX.Size = new System.Drawing.Size(120, 16);
-            this.cbBGYFX.TabIndex = 43;
-            this.cbBGYFX.Text = "保管员工作量分析";
-            this.cbBGYFX.UseVisualStyleBackColor = true;
+            this.tbChaiFilePath.Location = new System.Drawing.Point(122, 49);
+            this.tbChaiFilePath.Name = "tbChaiFilePath";
+            this.tbChaiFilePath.Size = new System.Drawing.Size(463, 21);
+            this.tbChaiFilePath.TabIndex = 2;
             // 
-            // cbConvBGYSD
+            // label62
             // 
-            this.cbConvBGYSD.AutoSize = true;
-            this.cbConvBGYSD.Location = new System.Drawing.Point(25, 138);
-            this.cbConvBGYSD.Name = "cbConvBGYSD";
-            this.cbConvBGYSD.Size = new System.Drawing.Size(120, 16);
-            this.cbConvBGYSD.TabIndex = 57;
-            this.cbConvBGYSD.Text = "保管员工作量分析";
-            this.cbConvBGYSD.UseVisualStyleBackColor = true;
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(51, 106);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(65, 12);
+            this.label62.TabIndex = 3;
+            this.label62.Text = "文件大小：";
             // 
-            // cbBGYInfo
+            // lb_fileSize
             // 
-            this.cbBGYInfo.AutoSize = true;
-            this.cbBGYInfo.Enabled = false;
-            this.cbBGYInfo.Location = new System.Drawing.Point(83, 188);
-            this.cbBGYInfo.Name = "cbBGYInfo";
-            this.cbBGYInfo.Size = new System.Drawing.Size(120, 16);
-            this.cbBGYInfo.TabIndex = 69;
-            this.cbBGYInfo.Text = "保管员工作量分析";
-            this.cbBGYInfo.UseVisualStyleBackColor = true;
+            this.lb_fileSize.AutoSize = true;
+            this.lb_fileSize.Location = new System.Drawing.Point(132, 106);
+            this.lb_fileSize.Name = "lb_fileSize";
+            this.lb_fileSize.Size = new System.Drawing.Size(11, 12);
+            this.lb_fileSize.TabIndex = 4;
+            this.lb_fileSize.Text = "0";
             // 
-            // tbConvBGYDateInfo
+            // button2
             // 
-            this.tbConvBGYDateInfo.Enabled = false;
-            this.tbConvBGYDateInfo.Location = new System.Drawing.Point(206, 186);
-            this.tbConvBGYDateInfo.Name = "tbConvBGYDateInfo";
-            this.tbConvBGYDateInfo.ReadOnly = true;
-            this.tbConvBGYDateInfo.Size = new System.Drawing.Size(123, 21);
-            this.tbConvBGYDateInfo.TabIndex = 76;
+            this.button2.Location = new System.Drawing.Point(41, 203);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "拆分";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(51, 155);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(65, 12);
+            this.label64.TabIndex = 3;
+            this.label64.Text = "拆分路径：";
+            // 
+            // tb_dic
+            // 
+            this.tb_dic.Location = new System.Drawing.Point(122, 152);
+            this.tb_dic.Name = "tb_dic";
+            this.tb_dic.Size = new System.Drawing.Size(463, 21);
+            this.tb_dic.TabIndex = 2;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(39, 266);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(65, 12);
+            this.label65.TabIndex = 3;
+            this.label65.Text = "拆分进度：";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(122, 266);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(463, 23);
+            this.progressBar1.TabIndex = 6;
+            // 
+            // lb_filesizeKB
+            // 
+            this.lb_filesizeKB.AutoSize = true;
+            this.lb_filesizeKB.Location = new System.Drawing.Point(260, 106);
+            this.lb_filesizeKB.Name = "lb_filesizeKB";
+            this.lb_filesizeKB.Size = new System.Drawing.Size(11, 12);
+            this.lb_filesizeKB.TabIndex = 4;
+            this.lb_filesizeKB.Text = "0";
             // 
             // frmLHSMJOB
             // 
@@ -2024,6 +2154,8 @@
             this.panel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2203,5 +2335,17 @@
         private System.Windows.Forms.CheckBox cbConvBGYSD;
         private System.Windows.Forms.TextBox tbConvBGYDateInfo;
         private System.Windows.Forms.CheckBox cbBGYInfo;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox tbChaiFilePath;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label lb_fileSize;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.TextBox tb_dic;
+        private System.Windows.Forms.Label lb_filesizeKB;
     }
 }

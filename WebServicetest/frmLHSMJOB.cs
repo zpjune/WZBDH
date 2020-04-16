@@ -1658,6 +1658,74 @@ namespace WebServicetest
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "请选择文件";
+            dialog.Filter = "文件|*.txt"; //设置要选择的文件的类型
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = dialog.FileName;
+                this.tbChaiFilePath.Text = filePath;
+                FileInfo file= new System.IO.FileInfo(filePath);
+
+                lb_filesizeKB.Text= System.Math.Ceiling(file.Length / 1024.0 ) + " KB";
+                lb_fileSize.Text = System.Math.Ceiling(file.Length / 1024.0/1024.0) + " M";
+                tb_dic.Text = filePath.Substring(0,filePath.LastIndexOf('\\')+1)+file.Name.Split('_')[0];
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string dic = tb_dic.Text.Trim();
+            if (!Directory.Exists(dic)) {
+                Directory.CreateDirectory(dic);
+            }
+            if (File.Exists(tbChaiFilePath.Text.Trim()))
+            {
+
+                FileInfo fileInfo = new FileInfo(tbChaiFilePath.Text.Trim());
+                int splitFileSize = 25 * 1024;
+                int steps = (int)(fileInfo.Length / splitFileSize);
+                var length = fileInfo.Length;
+                using (FileStream fs = fileInfo.Open(FileMode.Open, FileAccess.Read))
+                {
+                    using (BinaryReader br = new BinaryReader(fs))
+                    {
+                        int couter = 1;
+                        bool isReadingComplete = false;
+                        while (!isReadingComplete)
+                        {
+                            string filePath = $"{fileInfo.FullName}.{couter}{fileInfo.Extension}";
+                            //Console.WriteLine("开始读取文件【{1}】：{0}", filePath, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                            byte[] input = br.ReadBytes(splitFileSize);
+                            var newLine = GetLineFeed(br);
+                            using (FileStream writeFs = new FileStream(filePath, FileMode.Create))
+                            {
+                                using (BinaryWriter bw = new BinaryWriter(writeFs))
+                                {
+                                    bw.Write(input);
+                                    bw.Write(newLine);
+                                }
+                            }
+                            isReadingComplete = br.BaseStream.Position >= length;
+                            if (!isReadingComplete)
+                            {
+                                couter += 1;
+                            }
+                            Console.WriteLine("完成读取文件【{1}】：{0}", filePath, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                        }
+                    }
+                }
+
+            }
+            else {
+                MessageBox.Show("找不到对应路径下的文件！");
+            }
+
+        }
+
     }
 
 }
